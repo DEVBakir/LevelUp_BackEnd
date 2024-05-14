@@ -4,12 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2342ab11-f34e-4bb3-9c41-3924131a2905" name="Changes" comment="t">
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/45ef9668-2824-4fc0-98a8-d861e4ddddd7.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/45ef9668-2824-4fc0-98a8-d861e4ddddd7.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/4e840a5f-8b28-47b0-96f2-4fb8eb7937ba.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/4e840a5f-8b28-47b0-96f2-4fb8eb7937ba.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="2342ab11-f34e-4bb3-9c41-3924131a2905" name="Changes" comment="final set up project">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FinalProject/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/FinalProject/settings.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -23,6 +20,18 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
     <option name="ROOT_SYNC" value="SYNC" />
   </component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "ahmedchsalah"
+  }
+}]]></component>
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/DEVBakir/LevelUp_Vercel.git",
+    "accountId": "51fecca4-d527-42b3-bd94-10756ed498c8"
+  }
+}]]></component>
   <component name="ProblemsViewState">
     <option name="selectedTabId" value="CurrentFile" />
   </component>
@@ -136,6 +145,7 @@
       <workItem from="1715547094532" duration="22522000" />
       <workItem from="1715700397731" duration="5964000" />
       <workItem from="1715713702551" duration="4036000" />
+      <workItem from="1715722513136" duration="1378000" />
     </task>
     <task id="LOCAL-00001" summary="rf">
       <option name="closed" value="true" />
@@ -169,7 +179,15 @@
       <option name="project" value="LOCAL" />
       <updated>1715706687283</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="final set up project">
+      <option name="closed" value="true" />
+      <created>1715722749786</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1715722749786</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -190,6 +208,7 @@
     <MESSAGE value="rf" />
     <MESSAGE value="Set Up Project To Host" />
     <MESSAGE value="t" />
-    <option name="LAST_COMMIT_MESSAGE" value="t" />
+    <MESSAGE value="final set up project" />
+    <option name="LAST_COMMIT_MESSAGE" value="final set up project" />
   </component>
 </project>
