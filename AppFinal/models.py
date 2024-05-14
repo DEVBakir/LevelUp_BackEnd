@@ -17,6 +17,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     is_active = models.BooleanField(default=True)
     date_joined = models.DateTimeField(auto_now_add=True)
     last_login = models.DateTimeField(auto_now=True)
+    img = models.ImageField(upload_to='images/', null=True)
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['first_name', 'last_name']
@@ -47,7 +48,6 @@ class Student(models.Model):
     degree = models.CharField(max_length=100, null=True, verbose_name=_('Degree'))
     speciality = models.CharField(max_length=50, null=True, verbose_name=_('speciality'))
     courses_of_interest = models.CharField(max_length=255, null=True, verbose_name=_('Courses of Interest'))
-    img = models.ImageField(upload_to='images/', null=True)
     score = models.IntegerField(default=0)
     daily_time_spent = models.IntegerField(default=0)
     weekly_time_spent = models.IntegerField(default=0)
@@ -57,7 +57,6 @@ class Student(models.Model):
 class Teacher(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     university = models.CharField(max_length=100, null=True, verbose_name=_('University'))
-    img = models.ImageField(upload_to='images/', null=True)
 
     def __str__(self):
         return self.id
@@ -77,6 +76,9 @@ class Role(models.Model):
 class User_Roles(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     role = models.ForeignKey(Role, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.role.name
 
 
 class OneTimePassword(models.Model):

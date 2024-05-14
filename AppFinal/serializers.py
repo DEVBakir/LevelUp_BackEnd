@@ -1,4 +1,6 @@
 from rest_framework import serializers
+from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
+
 from .models import User, Student, Teacher, Role, User_Roles, Course, Enroll_Course
 from django.contrib.auth import authenticate
 from rest_framework.exceptions import AuthenticationFailed
@@ -8,6 +10,8 @@ from django.contrib.sites.shortcuts import get_current_site
 from django.utils.encoding import force_str, smart_bytes
 from django.urls import reverse
 from .utils import send_normal_email, send_code
+from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
+from rest_framework_simplejwt.views import TokenObtainPairView
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -182,8 +186,8 @@ class LoginSerializer(serializers.Serializer):
         user = authenticate(request, username=email, password=password)
         if not user:
             raise AuthenticationFailed('Invalid credentials. Please try again.')
-        #if not user.is_verified:
-       #     raise AuthenticationFailed('Email is not verified.')
+        # if not user.is_verified:
+        #     raise AuthenticationFailed('Email is not verified.')
 
         user_token = user.tokens()
         return {
@@ -373,3 +377,16 @@ class ProfileUpdateSerializer(serializers.ModelSerializer):
 
         return instance
 
+
+class UserInfoSerializer(serializers.ModelSerializer):
+    role = serializers.SerializerMethodField()
+
+    class Meta:
+        model = User
+        fields = ['email', 'first_name', 'last_name', 'id', 'img', 'role']
+
+    def get_role(self, obj):
+        user_role = User_Roles.objects.filter(user=obj).first()
+        if user_role:
+            return user_role.role.name  # Assuming 'name' is the field with the role name
+        return None  # Or any default value you prefer

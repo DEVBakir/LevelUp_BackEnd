@@ -6,7 +6,7 @@ import time
 from .serializers import TeacherRegisterSerializer, SpecialistRegisterSerializer, \
     AdminRegisterSerializer, LoginSerializer, ManageCourseSerializer, PasswordResetRequestSerializer, \
     SetNewPasswordSerializer, ValidateEmailSerializer, ResendOTPSerializer, CourseSerializer, \
-    TeacherCourseAssignmentSerializer, TeacherSerializer, ProfileUpdateSerializer
+    TeacherCourseAssignmentSerializer, TeacherSerializer, ProfileUpdateSerializer, UserInfoSerializer
 from rest_framework.permissions import AllowAny
 from .utils import send_code
 from .models import OneTimePassword, User, Course, Badge, User_Roles, Teacher
@@ -51,6 +51,7 @@ class RegisterStudentView(GenericAPIView):
                 'refresh_token': login_data['refresh_token']
             }, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 
 class RegisterTeacherView(GenericAPIView):
     serializer_class = TeacherRegisterSerializer
@@ -433,3 +434,55 @@ class CourseDelete(APIView):
             return Response({"message": "Course not found"}, status=status.HTTP_404_NOT_FOUND)
         except Exception as e:
             return Response({"message": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
+class UsersList(APIView):
+    permission_classes = [AllowAny]
+    pagination_class = PageNumberPagination
+
+    def get(self, request):
+        paginator = self.pagination_class()
+        users = User.objects.all()
+
+        # Extract query parameters
+        speciality_filter = request.query_params.get('speciality')
+        degree_filter = request.query_params.get('degree')
+        ordering = request.query_params.get('ordering', 'id')  # Default ordering by id
+        order_direction = request.query_params.get('order_direction', 'asc')  # Default order direction is ascending
+
+        # Apply filters
+        if speciality_filter:
+            courses = users.filter(speciality=speciality_filter)
+        if degree_filter:
+            courses = users.filter(degree=degree_filter)
+
+        # Check if ordering field is valid
+        if ordering not in ['id', 'Name', 'degree', 'speciality']:
+            return Response({"error": "Invalid ordering field."}, status=400)
+
+        # Check if order direction is valid
+        if order_direction not in ['asc', 'desc']:
+            return Response({"error": "Invalid order direction. Use 'asc' or 'desc'."}, status=400)
+
+        # Apply ordering
+        if order_direction == 'desc':
+            ordering = '-' + ordering
+            courses = users.order_by(ordering)
+
+        # Paginate results
+        if 'page' in request.query_params:
+            result_page = paginator.paginate_queryset(users, request)
+            serializer = UserInfoSerializer(result_page, many=True)
+            response_data = paginator.get_paginated_response(serializer.data)
+
+            # Calculate the total number of pages
+            total_pages = paginator.page.paginator.num_pages
+
+            # Include the total number of pages in the response
+            response_data.data['total_pages'] = total_pages
+
+            return response_data
+        else:
+            # No pagination parameters included, return all courses
+            serializer = UserInfoSerializer(users, many=True)
+            return Response(serializer.data)

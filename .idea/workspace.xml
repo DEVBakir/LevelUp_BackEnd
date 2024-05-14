@@ -4,63 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2342ab11-f34e-4bb3-9c41-3924131a2905" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/../.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../.idea/FinalProject.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../.idea/dataSources.local.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../.idea/dataSources.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../.idea/dataSources/45ef9668-2824-4fc0-98a8-d861e4ddddd7.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../.idea/dataSources/45ef9668-2824-4fc0-98a8-d861e4ddddd7/storage_v2/_src_/schema/final_project_db.zdFzMg.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../.idea/dataSources/45ef9668-2824-4fc0-98a8-d861e4ddddd7/storage_v2/_src_/schema/information_schema.FNRwLQ.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../.idea/dataSources/45ef9668-2824-4fc0-98a8-d861e4ddddd7/storage_v2/_src_/schema/mysql.osA4Bg.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../.idea/dataSources/45ef9668-2824-4fc0-98a8-d861e4ddddd7/storage_v2/_src_/schema/performance_schema.kIw0nw.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../.idea/dataSources/45ef9668-2824-4fc0-98a8-d861e4ddddd7/storage_v2/_src_/schema/sys.zb4BAA.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../.idea/dataSources/4e840a5f-8b28-47b0-96f2-4fb8eb7937ba.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../.idea/dataSources/4e840a5f-8b28-47b0-96f2-4fb8eb7937ba/storage_v2/_src_/schema/final_project_db.zdFzMg.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../.idea/dataSources/4e840a5f-8b28-47b0-96f2-4fb8eb7937ba/storage_v2/_src_/schema/information_schema.FNRwLQ.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../.idea/dataSources/4e840a5f-8b28-47b0-96f2-4fb8eb7937ba/storage_v2/_src_/schema/mysql.osA4Bg.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../.idea/dataSources/4e840a5f-8b28-47b0-96f2-4fb8eb7937ba/storage_v2/_src_/schema/performance_schema.kIw0nw.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../.idea/dataSources/4e840a5f-8b28-47b0-96f2-4fb8eb7937ba/storage_v2/_src_/schema/sys.zb4BAA.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../.idea/inspectionProfiles/profiles_settings.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../.idea/vcs.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../.idea/workspace.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../AppFinal/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../AppFinal/admin.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../AppFinal/apps.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../AppFinal/managers.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../AppFinal/migrations/0001_initial.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../AppFinal/migrations/0002_student_speciality.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../AppFinal/migrations/0003_alter_student_speciality.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../AppFinal/migrations/0004_remove_teacher_grade.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../AppFinal/migrations/0005_remove_student_level_student_degree.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../AppFinal/migrations/0006_student_courses_of_interest.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../AppFinal/migrations/0007_alter_student_speciality.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../AppFinal/migrations/0008_student_img_url_student_score.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../AppFinal/migrations/0009_remove_student_img_url_student_img.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../AppFinal/migrations/0010_remove_student_img_student_img_url.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../AppFinal/migrations/0011_remove_course_img_url_course_img.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../AppFinal/migrations/0012_remove_course_img_remove_student_img_url_and_more.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../AppFinal/migrations/0013_remove_enroll_course_degree.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../AppFinal/migrations/0014_enroll_course_score_earned.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../AppFinal/migrations/0015_student_daily_time_spent_student_monthly_time_spent_and_more.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../AppFinal/migrations/0016_teacher_img.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../AppFinal/migrations/0017_alter_course_level.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../AppFinal/migrations/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../AppFinal/models.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../AppFinal/serializers.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../AppFinal/tests.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../AppFinal/urls.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../AppFinal/utils.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../AppFinal/views.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../images/algorithm.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../images/database-storage.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../images/istockphoto-1200677760-612x612.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../images/istockphoto-1200677760-612x612_ITpH1uc.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../images/operative-system.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../manage.py" beforeDir="false" />
-    </list>
+    <list default="true" id="2342ab11-f34e-4bb3-9c41-3924131a2905" name="Changes" comment="rf" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -90,7 +34,7 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "git-widget-placeholder": "main",
-    "last_opened_file_path": "C:/Users/ADMI/Desktop/finale/Fn",
+    "last_opened_file_path": "C:/Users/ADMI/Desktop/fvff",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -181,10 +125,24 @@
       <workItem from="1715215124780" duration="3579000" />
       <workItem from="1715470625201" duration="186000" />
       <workItem from="1715546373845" duration="669000" />
+      <workItem from="1715547094532" duration="21323000" />
     </task>
+    <task id="LOCAL-00001" summary="rf">
+      <option name="closed" value="true" />
+      <created>1715547318455</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1715547318455</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="rf" />
+    <option name="LAST_COMMIT_MESSAGE" value="rf" />
   </component>
 </project>

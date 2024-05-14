@@ -1,4 +1,6 @@
 import random
+from datetime import datetime
+
 from django.core.mail import send_mail
 from .models import User, OneTimePassword
 from django.conf import settings
@@ -24,3 +26,4 @@ def send_code(email):
 
 def send_normal_email(data):
     send_mail(data['email_subject'], data['email_body'], settings.EMAIL_HOST_USER, [data['to_email']])
+
