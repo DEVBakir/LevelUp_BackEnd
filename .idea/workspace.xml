@@ -4,12 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2342ab11-f34e-4bb3-9c41-3924131a2905" name="Changes" comment="dzd">
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+    <list default="true" id="2342ab11-f34e-4bb3-9c41-3924131a2905" name="Changes" comment="Set Up Project To Host">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AppFinal/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/AppFinal/models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/FinalProject/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/FinalProject/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/requirement.txt" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -21,6 +18,7 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="ROOT_SYNC" value="SYNC" />
   </component>
   <component name="ProblemsViewState">
     <option name="selectedTabId" value="CurrentFile" />
@@ -132,7 +130,7 @@
       <workItem from="1715470625201" duration="186000" />
       <workItem from="1715546373845" duration="669000" />
       <workItem from="1715547094532" duration="22522000" />
-      <workItem from="1715700397731" duration="919000" />
+      <workItem from="1715700397731" duration="4366000" />
     </task>
     <task id="LOCAL-00001" summary="rf">
       <option name="closed" value="true" />
@@ -142,7 +140,15 @@
       <option name="project" value="LOCAL" />
       <updated>1715547318455</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Set Up Project To Host">
+      <option name="closed" value="true" />
+      <created>1715701394765</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1715701394765</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -150,6 +156,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="rf" />
-    <option name="LAST_COMMIT_MESSAGE" value="rf" />
+    <MESSAGE value="Set Up Project To Host" />
+    <option name="LAST_COMMIT_MESSAGE" value="Set Up Project To Host" />
   </component>
 </project>
