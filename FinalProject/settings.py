@@ -245,4 +245,4 @@ ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_USERNAME_REQUIRED = False
 
 MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR))
+MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR),"FinalProject")
