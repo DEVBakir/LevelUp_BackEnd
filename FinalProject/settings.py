@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-ixuze)=rq8^c!g#k+(4i84oji%8_3*72*5giro%qd@=f*r6z)&
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["192.168.205.126", "localhost","192.168.143.156"]
+ALLOWED_HOSTS = ["*"]
 
 # Application definition
 
@@ -92,11 +92,11 @@ WSGI_APPLICATION = 'FinalProject.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'final_project_db',
+        'NAME': 'railway',
         'USER': 'root',
-        'PASSWORD': '17047970',
-        'HOST': 'localhost',
-        'PORT': '3306'
+        'PASSWORD': 'EbXzPXNsnXwqQGOukzmRDiTINUTqbVWP',
+        'HOST': 'roundhouse.proxy.rlwy.net',
+        'PORT': '47049'
     }
 }
 

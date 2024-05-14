@@ -37,6 +37,9 @@ class User(AbstractBaseUser, PermissionsMixin):
             'access': str(refresh.access_token),
         }
 
+    class Meta:
+        db_table = 'user'
+
     groups = models.ManyToManyField(Group, related_name='custom_user_set', verbose_name=_('Groups'))
     user_permissions = models.ManyToManyField(Permission, related_name='custom_user_set',
                                               verbose_name=_('User Permissions'))
@@ -53,6 +56,9 @@ class Student(models.Model):
     weekly_time_spent = models.IntegerField(default=0)
     monthly_time_spent = models.IntegerField(default=0)
 
+    class Meta:
+        db_table = 'student'
+
 
 class Teacher(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -60,6 +66,9 @@ class Teacher(models.Model):
 
     def __str__(self):
         return self.id
+
+    class Meta:
+        db_table = 'teacher'
 
 
 class Role(models.Model):
@@ -72,6 +81,9 @@ class Role(models.Model):
     name = models.CharField(max_length=50, choices=RoleChoices)
     abstract = True
 
+    class Meta:
+        db_table = 'role'
+
 
 class User_Roles(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -79,6 +91,9 @@ class User_Roles(models.Model):
 
     def __str__(self):
         return self.role.name
+
+    class Meta:
+        db_table = 'user_role'
 
 
 class OneTimePassword(models.Model):
@@ -88,12 +103,18 @@ class OneTimePassword(models.Model):
     def __str__(self):
         return f'{self.user.first_name} passcode'
 
+    class Meta:
+        db_table = 'oneTimePassword'
+
 
 class Badge(models.Model):
     name = models.CharField(max_length=50)
     score = models.IntegerField()
     description = models.TextField()
     students = models.ManyToManyField(Student, related_name='students')
+
+    class Meta:
+        db_table = 'badge'
 
 
 class Course(models.Model):
@@ -117,6 +138,9 @@ class Course(models.Model):
     def __str__(self):
         return f'{self.title} - {self.description}'
 
+    class Meta:
+        db_table = 'course'
+
 
 class Lesson(models.Model):
     course = models.ForeignKey(Course, on_delete=models.CASCADE)
@@ -125,12 +149,18 @@ class Lesson(models.Model):
     chapter_number = models.IntegerField()
     description = models.TextField()
 
+    class Meta:
+        db_table = 'lesson'
+
 
 class Slide(models.Model):
     lesson = models.ForeignKey(Lesson, on_delete=models.CASCADE)
     order = models.IntegerField()
     description = models.TextField()
     content = models.TextField()
+
+    class Meta:
+        db_table = 'slide'
 
 
 class Game(models.Model):
@@ -142,6 +172,9 @@ class Game(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
+    class Meta:
+        db_table = 'game'
+
 
 class Enroll_Course(models.Model):
     course = models.ForeignKey(Course, on_delete=models.CASCADE)
@@ -151,12 +184,18 @@ class Enroll_Course(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
+    class Meta:
+        db_table = 'enrollCourse'
+
 
 class ChatRoom(models.Model):
     description = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     theme_color = models.TextField()
+
+    class Meta:
+        db_table = 'chatRoom'
 
 
 class Message(models.Model):
@@ -166,6 +205,9 @@ class Message(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
+    class Meta:
+        db_table = 'message'
+
 
 class Participation(models.Model):
     ChatRoom = models.ForeignKey(ChatRoom, on_delete=models.CASCADE)
@@ -173,3 +215,6 @@ class Participation(models.Model):
     joined_at = models.DateTimeField(auto_now_add=True)
     last_active = models.DateTimeField(auto_now=True)
     status = models.IntegerField()
+
+    class Meta:
+        db_table = 'participation'
