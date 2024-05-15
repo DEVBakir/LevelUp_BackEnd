@@ -240,3 +240,5 @@ class Participation(models.Model):
 
     class Meta:
         db_table = 'participation'
+
+

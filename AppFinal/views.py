@@ -35,20 +35,12 @@ class RegisterStudentView(GenericAPIView):
             user = serializer.data['user']
             email = user['email']
             send_code(email)  # Access the user's email through the related user object
-
-            # Create login serializer instance with the user's credentials
-            login_serializer = LoginSerializer(data={'email': email, 'password': request.data['password']})
-            login_serializer.is_valid(raise_exception=True)
-            login_data = login_serializer.validated_data
-
             # Return user data along with access and refresh tokens
             return Response({
                 'data': serializer.data['user'],
                 'degree': serializer.validated_data.get('degree'),
                 'speciality': serializer.validated_data.get('speciality'),
                 'university': serializer.validated_data.get('university'),
-                'access_token': login_data['access_token'],
-                'refresh_token': login_data['refresh_token']
             }, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
@@ -86,6 +78,7 @@ class RegisterSpecialistView(GenericAPIView):
 
 
 class RegisterAdminView(GenericAPIView):
+    permission_classes = [AllowAny]
     serializer_class = AdminRegisterSerializer
 
     def post(self, request):
