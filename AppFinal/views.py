@@ -3,10 +3,12 @@ from rest_framework.pagination import PageNumberPagination
 from rest_framework.views import APIView
 import time
 
+from rest_framework_simplejwt.tokens import RefreshToken
+
 from .serializers import TeacherRegisterSerializer, SpecialistRegisterSerializer, \
     AdminRegisterSerializer, LoginSerializer, ManageCourseSerializer, PasswordResetRequestSerializer, \
     SetNewPasswordSerializer, ValidateEmailSerializer, ResendOTPSerializer, CourseSerializer, \
-    TeacherCourseAssignmentSerializer, TeacherSerializer, ProfileUpdateSerializer, UserInfoSerializer
+    TeacherCourseAssignmentSerializer, TeacherSerializer, ProfileUpdateSerializer, UserInfoSerializer, GetUserSerializer
 from rest_framework.permissions import AllowAny
 from .utils import send_code
 from .models import OneTimePassword, User, Course, Badge, User_Roles, Teacher
@@ -499,3 +501,11 @@ class UsersList(APIView):
             # No pagination parameters included, return all courses
             serializer = UserInfoSerializer(users, many=True)
             return Response(serializer.data)
+
+
+class GetUserView(APIView):
+    def post(self, request, *args, **kwargs):
+        serializer = GetUserSerializer(data=request.data)
+        if serializer.is_valid():
+            return Response(serializer.validated_data, status=status.HTTP_200_OK)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

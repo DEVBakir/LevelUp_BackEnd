@@ -1,5 +1,7 @@
 from rest_framework import serializers
+from rest_framework_simplejwt.exceptions import InvalidToken
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
+from rest_framework_simplejwt.tokens import RefreshToken
 
 from .models import User, Student, Teacher, Role, User_Roles, Course, Enroll_Course
 from django.contrib.auth import authenticate
@@ -198,6 +200,33 @@ class LoginSerializer(serializers.Serializer):
             'refresh_token': str(user_token.get('refresh')),
             'isVerified': user.is_verified
         }
+
+
+class GetUserSerializer(serializers.Serializer):
+    access_token = serializers.CharField(max_length=200, write_only=True)
+    firstname = serializers.CharField(read_only=True)
+    lastname = serializers.CharField(read_only=True)
+    email = serializers.EmailField(read_only=True)
+    role = serializers.CharField(read_only=True)
+
+    def validate(self, attrs):
+        access_token = attrs.get('access_token')
+        if not access_token:
+            raise serializers.ValidationError("Access token is required")
+
+        try:
+            refresh_token = RefreshToken(access_token)
+            user_id = refresh_token.payload.get('user_id')
+            user = User.objects.get(id=user_id)
+            user_role = User_Roles.objects.get(user=user)
+            return {
+                'message': 'success',
+                'username': user.email,
+                'full_name': user.get_full_name(),
+                'user_role': user_role.role,
+            }
+        except (InvalidToken, User.DoesNotExist):
+            raise serializers.ValidationError("Invalid access token")
 
 
 class ValidateEmailSerializer(serializers.ModelSerializer):
