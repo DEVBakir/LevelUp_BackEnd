@@ -383,7 +383,7 @@ class UserInfoSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ['email', 'first_name', 'last_name', 'id', 'img', 'role']
+        fields = ['email', 'first_name', 'last_name', 'id', 'img', 'role', 'is_active', 'date_joined']
 
     def get_role(self, obj):
         user_role = User_Roles.objects.filter(user=obj).first()

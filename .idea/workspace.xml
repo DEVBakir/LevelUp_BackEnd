@@ -4,11 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2342ab11-f34e-4bb3-9c41-3924131a2905" name="Changes" comment="final set up project">
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+    <list default="true" id="2342ab11-f34e-4bb3-9c41-3924131a2905" name="Changes" comment="Modify Profile Info Api &amp; UserList">
+      <change afterPath="$PROJECT_DIR$/images/defaultPersone.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/images/persone.jpg" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AppFinal/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/AppFinal/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AppFinal/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/AppFinal/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AppFinal/serializers.py" beforeDir="false" afterPath="$PROJECT_DIR$/AppFinal/serializers.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -70,6 +70,9 @@
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\ADMI\Desktop\finale\FinalProject\AppFinal" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\ADMI\Desktop\At\LevelUp_BackEnd\images" />
     </key>
   </component>
   <component name="RunManager">
@@ -148,7 +151,7 @@
       <workItem from="1715713702551" duration="4036000" />
       <workItem from="1715722513136" duration="1814000" />
       <workItem from="1715771721752" duration="2923000" />
-      <workItem from="1715783959853" duration="208000" />
+      <workItem from="1715783959853" duration="549000" />
     </task>
     <task id="LOCAL-00001" summary="rf">
       <option name="closed" value="true" />
@@ -206,7 +209,15 @@
       <option name="project" value="LOCAL" />
       <updated>1715724364249</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="Modify Profile Info Api &amp; UserList">
+      <option name="closed" value="true" />
+      <created>1715784236856</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1715784236856</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -228,6 +239,7 @@
     <MESSAGE value="Set Up Project To Host" />
     <MESSAGE value="t" />
     <MESSAGE value="final set up project" />
-    <option name="LAST_COMMIT_MESSAGE" value="final set up project" />
+    <MESSAGE value="Modify Profile Info Api &amp; UserList" />
+    <option name="LAST_COMMIT_MESSAGE" value="Modify Profile Info Api &amp; UserList" />
   </component>
 </project>
