@@ -1,10 +1,19 @@
+from django.contrib.auth import get_user_model
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, Group, Permission
 from django.db.models import Case
 from django.utils.translation import gettext_lazy as _
+from jwt import InvalidTokenError
+
 from .managers import UserManager
 from rest_framework_simplejwt.tokens import RefreshToken
 from django.db.models import Case, When, Value, IntegerField
+from rest_framework_simplejwt.tokens import RefreshToken
+from django.contrib.auth import get_user_model
+
+from rest_framework_simplejwt.exceptions import InvalidToken
+from rest_framework_simplejwt.tokens import RefreshToken
+from django.contrib.auth import get_user_model
 
 
 class User(AbstractBaseUser, PermissionsMixin):
