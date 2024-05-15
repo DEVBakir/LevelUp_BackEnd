@@ -5,7 +5,7 @@ from .views import (RegisterStudentView, RegisterTeacherView, RegisterSpecialist
                     ValidateEmailView,
                     ResendOTPView, TeacherCourseAssignmentView, VerifyUserEmail, ProfileInfo, SetStudentImage,
                     CourseList, ProfileUpdateAPIView, PasswordResetConfirmView, SetNewPasswordView, CourseDelete,
-                    UsersList)
+                    UsersList, UserDeleteView)
 from rest_framework_simplejwt.views import (
     TokenObtainPairView,
     TokenRefreshView,
@@ -37,5 +37,6 @@ urlpatterns = [
     path('student/<int:student_id>/set_image/', SetStudentImage.as_view(), name='set_student_image'),
     path('api/profile/update/', ProfileUpdateAPIView.as_view(), name='profile-update'),
     path('usersList/', UsersList.as_view(), name='users_list'),
+    path('user/delete/', UserDeleteView.as_view(), name='user_delete'),
 
 ]

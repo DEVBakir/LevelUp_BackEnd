@@ -37,6 +37,28 @@ class User(AbstractBaseUser, PermissionsMixin):
             'access': str(refresh.access_token),
         }
 
+    def delete(self, *args, **kwargs):
+        # Delete related Student objects
+        student = self.student
+        if student:
+            student.delete()
+
+        # Delete related Teacher objects
+        teacher = self.teacher
+        if teacher:
+            teacher.delete()
+
+        # Delete related OneTimePassword objects
+        onetime_password = self.onetimepassword
+        if onetime_password:
+            onetime_password.delete()
+
+        user_roles = self.user_roles
+        if user_roles:
+            user_roles.delete()
+        # Call the superclass delete method
+        super().delete(*args, **kwargs)
+
     class Meta:
         db_table = 'user'
 

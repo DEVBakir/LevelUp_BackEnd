@@ -385,12 +385,40 @@ class ProfileInfo(APIView):
                     'img': self.get_image_url(teacher, 'img'),
                     'courses': course_data,
                 }
-
+            elif user_role == "specialist":
+                specialist = User.objects.get(user_id=profile_id)
+                response_data = {
+                    'FirstName': specialist.first_name,
+                    'LastName': specialist.last_name,
+                    'email': specialist.email,
+                    'img': self.get_image_url(specialist, 'img'),
+                }
+            elif user_role == "admin":
+                admin = User.objects.get(user_id=profile_id)
+                response_data = {
+                    'FirstName': admin.first_name,
+                    'LastName': admin.last_name,
+                    'email': admin.email,
+                    'img': self.get_image_url(admin, 'img'),
+                }
             return Response(response_data)
         except User_Roles.DoesNotExist:
             return Response({'error': 'User role not found'}, status=404)
         except (Student.DoesNotExist, Teacher.DoesNotExist):
             return Response({'error': 'Profile not found'}, status=404)
+
+
+class UserDeleteView(APIView):
+
+    def delete(self, request, profile_id):
+        try:
+            user = User.objects.get(user_id=profile_id)
+            user.delete()
+            return Response({"message": " User deleted successfully"}, status=status.HTTP_204_NO_CONTENT)
+        except User.DoesNotExist:
+            return Response({"message": "User not found"}, status=status.HTTP_404_NOT_FOUND)
+        except Exception as e:
+            return Response({"message": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
 class SetStudentImage(APIView):
