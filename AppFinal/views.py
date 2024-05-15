@@ -338,12 +338,7 @@ from .serializers import EnrollCourseSerializer
 
 
 class ProfileInfo(APIView):
-
-    def get_image_url(self, instance, img_field_name):
-        img_path = "file:///C:/Users/ADMI/Desktop/finale/FinalProject/"
-        img_name = getattr(instance, img_field_name).name if getattr(instance, img_field_name).name else ""
-        img_url = img_path + img_name if img_name else None
-        return img_url
+    permission_classes = [AllowAny]
 
     def get(self, request, profile_id):
         try:
@@ -359,7 +354,6 @@ class ProfileInfo(APIView):
 
                 # Determine CanEdit based on user permission
                 can_edit = request.user == student.user
-
                 response_data = {
                     'FirstName': student.user.first_name,
                     'LastName': student.user.last_name,
@@ -368,41 +362,40 @@ class ProfileInfo(APIView):
                     'Degree': student.degree,
                     'Score': student.score,
                     'Badges': badge_names,
-                    'img': self.get_image_url(student, 'img'),
                     'DailyTimeSpent': student.daily_time_spent,
                     'WeeklyTimeSpent': student.weekly_time_spent,
                     'MonthlyTimeSpent': student.monthly_time_spent,
                     'EnrollCourse': enroll_course_data,
+                    'Created': student.user.date_joined,
                     'CanEdit': can_edit,
                 }
 
+                if student.user.img:
+                    # Include image URL in response data
+                    response_data['img'] = student.user.img.url
+                else:
+                    # Set default placeholder image URL
+                    response_data['img'] = '/images/defaultPersone.png'  # Adjust the path to your placeholder image
+
             elif user_role == "teacher":
                 teacher = Teacher.objects.get(user_id=profile_id)
-                courses = Course.objects.filter(teacher=teacher)
+                courses = Course.objects.filter(teachers=teacher)
                 course_data = [{'title': course.title} for course in courses]
 
                 response_data = {
                     'FirstName': teacher.user.first_name,
                     'LastName': teacher.user.last_name,
-                    'img': self.get_image_url(teacher, 'img'),
-                    'courses': course_data,
+                    'University': teacher.university,
+                    'Courses': course_data,
+                    'Created': teacher.user.date_joined
                 }
-            elif user_role == "specialist":
-                specialist = User.objects.get(user_id=profile_id)
-                response_data = {
-                    'FirstName': specialist.first_name,
-                    'LastName': specialist.last_name,
-                    'email': specialist.email,
-                    'img': self.get_image_url(specialist, 'img'),
-                }
-            elif user_role == "admin":
-                admin = User.objects.get(user_id=profile_id)
-                response_data = {
-                    'FirstName': admin.first_name,
-                    'LastName': admin.last_name,
-                    'email': admin.email,
-                    'img': self.get_image_url(admin, 'img'),
-                }
+                if teacher.user.img:
+                    # Include image URL in response data
+                    response_data['img'] = teacher.user.img.url
+                else:
+                    # Set default placeholder image URL
+                    response_data['img'] = '/images/defaultPersone.png'
+
             return Response(response_data)
         except User_Roles.DoesNotExist:
             return Response({'error': 'User role not found'}, status=404)
@@ -497,7 +490,6 @@ class UsersList(APIView):
         # Apply ordering
         if order_direction == 'desc':
             ordering = '-' + ordering
-            courses = users.order_by(ordering)
 
         # Paginate results
         if 'page' in request.query_params:
