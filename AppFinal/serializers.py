@@ -3,7 +3,7 @@ from rest_framework_simplejwt.exceptions import InvalidToken
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework_simplejwt.tokens import RefreshToken
 
-from .models import User, Student, Teacher, Role, User_Roles, Course, Enroll_Course
+from .models import User, Student, Teacher, Role, User_Roles, Course, Enroll_Course, CodeSnippet
 from django.contrib.auth import authenticate
 from rest_framework.exceptions import AuthenticationFailed
 from django.contrib.auth.tokens import PasswordResetTokenGenerator
@@ -421,3 +421,7 @@ class UserInfoSerializer(serializers.ModelSerializer):
         return None  # Or any default value you prefer
 
 
+class CodeSnippetSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CodeSnippet
+        fields = ['id', 'title', 'code']

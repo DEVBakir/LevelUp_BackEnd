@@ -251,3 +251,9 @@ class Participation(models.Model):
         db_table = 'participation'
 
 
+class CodeSnippet(models.Model):
+    title = models.CharField(max_length=100)
+    code = models.TextField()
+
+    class Meta:
+        db_table = 'codeSnippet'

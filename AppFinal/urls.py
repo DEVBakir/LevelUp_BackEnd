@@ -1,11 +1,13 @@
 from django.urls import path
+
+from .models import CodeSnippet
 from .views import (RegisterStudentView, RegisterTeacherView, RegisterSpecialistView, RegisterAdminView,
                     LoginUserView, ManageCourseView,
                     PasswordResetRequestView,
                     ValidateEmailView,
                     ResendOTPView, TeacherCourseAssignmentView, VerifyUserEmail, ProfileInfo, SetStudentImage,
                     CourseList, ProfileUpdateAPIView, PasswordResetConfirmView, SetNewPasswordView, CourseDelete,
-                    UsersList, UserDeleteView, GetUserView)
+                    UsersList, UserDeleteView, GetUserView, CodeSnippetView)
 from rest_framework_simplejwt.views import (
     TokenObtainPairView,
     TokenRefreshView,
@@ -39,5 +41,6 @@ urlpatterns = [
     path('usersList/', UsersList.as_view(), name='users_list'),
     path('user/delete/', UserDeleteView.as_view(), name='user_delete'),
     path('userByToken/', GetUserView.as_view(), name='get_user_by_token'),
-
+    path('codesnippet/', CodeSnippetView.as_view(), name='get_code_snippet',)
 ]
+

@@ -8,10 +8,11 @@ from rest_framework_simplejwt.tokens import RefreshToken
 from .serializers import TeacherRegisterSerializer, SpecialistRegisterSerializer, \
     AdminRegisterSerializer, LoginSerializer, ManageCourseSerializer, PasswordResetRequestSerializer, \
     SetNewPasswordSerializer, ValidateEmailSerializer, ResendOTPSerializer, CourseSerializer, \
-    TeacherCourseAssignmentSerializer, TeacherSerializer, ProfileUpdateSerializer, UserInfoSerializer, GetUserSerializer
+    TeacherCourseAssignmentSerializer, TeacherSerializer, ProfileUpdateSerializer, UserInfoSerializer, \
+    GetUserSerializer, CodeSnippetSerializer
 from rest_framework.permissions import AllowAny
 from .utils import send_code
-from .models import OneTimePassword, User, Course, Badge, User_Roles, Teacher
+from .models import OneTimePassword, User, Course, Badge, User_Roles, Teacher, CodeSnippet
 from django.utils.http import urlsafe_base64_decode
 from django.utils.encoding import smart_str, DjangoUnicodeDecodeError
 from django.contrib.auth.tokens import PasswordResetTokenGenerator
@@ -21,7 +22,7 @@ from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework.permissions import IsAuthenticated
 
 from rest_framework.response import Response
-from rest_framework import status
+from rest_framework import status, viewsets
 from rest_framework.generics import GenericAPIView
 from .serializers import StudentRegisterSerializer
 
@@ -508,4 +509,20 @@ class GetUserView(APIView):
         serializer = GetUserSerializer(data=request.data)
         if serializer.is_valid():
             return Response(serializer.validated_data, status=status.HTTP_200_OK)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class CodeSnippetView(APIView):
+    permission_classes = [AllowAny]
+
+    def get(self, request):
+        snippets = CodeSnippet.objects.all()
+        serializer = CodeSnippetSerializer(snippets, many=True)
+        return Response(serializer.data)
+
+    def post(self, request):
+        serializer = CodeSnippetSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

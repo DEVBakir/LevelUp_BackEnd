@@ -4,11 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2342ab11-f34e-4bb3-9c41-3924131a2905" name="Changes" comment="">
+    <list default="true" id="2342ab11-f34e-4bb3-9c41-3924131a2905" name="Changes" comment="Modify Registre Api">
+      <change afterPath="$PROJECT_DIR$/static/games/Hello.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/AppFinal/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/AppFinal/models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/AppFinal/serializers.py" beforeDir="false" afterPath="$PROJECT_DIR$/AppFinal/serializers.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AppFinal/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/AppFinal/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/AppFinal/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/AppFinal/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FinalProject/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/FinalProject/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FinalProject/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/FinalProject/urls.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -17,6 +21,13 @@
   </component>
   <component name="DjangoConsoleOptions" custom-start-script="import sys; print('Python %s on %s' % (sys.version, sys.platform))&#10;import django; print('Django %s' % django.get_version())&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;if 'setup' in dir(django): django.setup()&#10;import django_manage_shell; django_manage_shell.run(PROJECT_ROOT)">
     <option name="myCustomStartScript" value="import sys; print('Python %s on %s' % (sys.version, sys.platform))&#10;import django; print('Django %s' % django.get_version())&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;if 'setup' in dir(django): django.setup()&#10;import django_manage_shell; django_manage_shell.run(PROJECT_ROOT)" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="HTML File" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -47,6 +58,7 @@
   </component>
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
+    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
     &quot;Django Server.FinalProject.executor&quot;: &quot;Run&quot;,
     &quot;RunOnceActivity.OpenDjangoStructureViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
@@ -73,6 +85,10 @@
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\ADMI\Desktop\At\LevelUp_BackEnd\images" />
+      <recent name="C:\Users\ADMI\Desktop\At\LevelUp_BackEnd\static\games" />
+      <recent name="C:\Users\ADMI\Desktop\At\LevelUp_BackEnd" />
+      <recent name="C:\Users\ADMI\Desktop\At\LevelUp_BackEnd\AppFinal" />
+      <recent name="C:\Users\ADMI\Desktop\At\LevelUp_BackEnd\static" />
     </key>
   </component>
   <component name="RunManager">
@@ -152,7 +168,9 @@
       <workItem from="1715722513136" duration="1814000" />
       <workItem from="1715771721752" duration="2923000" />
       <workItem from="1715783959853" duration="8830000" />
-      <workItem from="1715808119201" duration="1066000" />
+      <workItem from="1715808119201" duration="2118000" />
+      <workItem from="1715811267016" duration="4695000" />
+      <workItem from="1715847248232" duration="1901000" />
     </task>
     <task id="LOCAL-00001" summary="rf">
       <option name="closed" value="true" />
@@ -226,7 +244,15 @@
       <option name="project" value="LOCAL" />
       <updated>1715784578097</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="Modify Registre Api">
+      <option name="closed" value="true" />
+      <created>1715809772115</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1715809772115</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -250,6 +276,7 @@
     <MESSAGE value="final set up project" />
     <MESSAGE value="Modify Profile Info Api &amp; UserList" />
     <MESSAGE value="Add Some Filed to UserInfo &amp;&amp; images" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add Some Filed to UserInfo &amp;&amp; images" />
+    <MESSAGE value="Modify Registre Api" />
+    <option name="LAST_COMMIT_MESSAGE" value="Modify Registre Api" />
   </component>
 </project>
