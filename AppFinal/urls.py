@@ -5,7 +5,7 @@ from .views import (RegisterStudentView, RegisterTeacherView, RegisterSpecialist
                     ValidateEmailView,
                     ResendOTPView, TeacherCourseAssignmentView, VerifyUserEmail, ProfileInfo, SetStudentImage,
                     CourseList, ProfileUpdateAPIView, PasswordResetConfirmView, SetNewPasswordView, CourseDelete,
-                    UsersList, UserDeleteView, GetUserView)
+                    UsersList, UserDeleteView, GetUserView, SearchCourseView)
 from rest_framework_simplejwt.views import (
     TokenObtainPairView,
     TokenRefreshView,
@@ -23,7 +23,8 @@ urlpatterns = [
     path('courses/', CourseList.as_view(), name='courses'),
     path('courses/assignement/', TeacherCourseAssignmentView.as_view(), name='teacherCourseAssignment'),
     # path('profile', TestAuthentication.as_view(), name='profile'),
-    path('course/create', ManageCourseView.as_view(), name='create_course'),
+    path('course/create/', ManageCourseView.as_view(), name='create_course'),
+    path('courses/search/', SearchCourseView.as_view(), name='search'),
     path('course/delete/<int:id>', CourseDelete.as_view(), name='delete_course'),
     path('password_reset', PasswordResetRequestView.as_view(), name='reset_password'),
     path('password_reset_confirm/<uidb64>/<token>', PasswordResetConfirmView.as_view(),

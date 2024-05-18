@@ -1,3 +1,4 @@
+from django.db.models import Q
 from rest_framework.exceptions import AuthenticationFailed
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.views import APIView
@@ -211,8 +212,30 @@ class ManageCourseView(GenericAPIView):
             }, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+
+class SearchCourseView(APIView):
+    serializer_class = ManageCourseSerializer
+
     def get(self, request):
-        pass
+        # Get the search keyword from URL parameters
+        keyword = request.GET.get('keyword', '')
+
+        if keyword:
+            # Use Q objects to search across multiple fields
+            courses = Course.objects.filter(
+                Q(title__icontains=keyword) |
+                Q(description__icontains=keyword) |
+                Q(degree__icontains=keyword) |
+                Q(level__icontains=keyword) |
+                Q(teachers__name__icontains=keyword)
+            ).distinct()
+        else:
+            # If no keyword is provided, return all courses
+            courses = Course.objects.all()
+
+        # Serialize the results
+        serializer = self.serializer_class(courses, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
 
 class PasswordResetRequestView(GenericAPIView):
