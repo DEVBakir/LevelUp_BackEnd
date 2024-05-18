@@ -3,7 +3,7 @@ from rest_framework_simplejwt.exceptions import InvalidToken
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework_simplejwt.tokens import RefreshToken
 
-from .models import User, Student, Teacher, Role, User_Roles, Course, Enroll_Course
+from .models import User, Student, Teacher, Role, User_Roles, Course, Enroll_Course, CodeSnippet
 from django.contrib.auth import authenticate
 from rest_framework.exceptions import AuthenticationFailed
 from django.contrib.auth.tokens import PasswordResetTokenGenerator
@@ -412,10 +412,16 @@ class UserInfoSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ['email', 'first_name', 'last_name', 'id', 'img', 'role', 'is_active', 'date_joined']
+        fields = ['email', 'first_name', 'last_name', 'id', 'img', 'role', 'is_active', 'date_joined' , 'is_verified']
 
     def get_role(self, obj):
         user_role = User_Roles.objects.filter(user=obj).first()
         if user_role:
             return user_role.role.name  # Assuming 'name' is the field with the role name
         return None  # Or any default value you prefer
+
+
+class CodeSnippetSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CodeSnippet
+        fields = ['id', 'title', 'code']
