@@ -17,15 +17,9 @@ from rest_framework_simplejwt.views import TokenObtainPairView
 
 
 class UserSerializer(serializers.ModelSerializer):
-    email = serializers.EmailField()
-    first_name = serializers.CharField(max_length=100)
-    last_name = serializers.CharField(max_length=100)
-    password = serializers.CharField(max_length=30, min_length=8, write_only=True)
-    confirmPassword = serializers.CharField(max_length=30, min_length=8, write_only=True)
-
     class Meta:
         model = User
-        fields = ['email', 'first_name', 'last_name', 'password', 'confirmPassword']
+        fields = ['email', 'first_name', 'last_name', 'img']
 
 
 class StudentRegisterSerializer(serializers.ModelSerializer):
@@ -70,7 +64,7 @@ class StudentRegisterSerializer(serializers.ModelSerializer):
 
         # Create role and user_role objects
         role = Role.objects.get_or_create(name='student')[0]
-        user_role = User_Roles.objects.create(user=user, role=role)
+        User_Roles.objects.create(user=user, role=role)
         validated_data['user'] = user
         return validated_data
 
@@ -121,7 +115,7 @@ class SpecialistRegisterSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ['email', 'first_name', 'last_name', 'password', 'confirmPassword']
+        fields = ['email', 'first_name', 'last_name', 'password', 'confirmPassword', 'img']
 
     def validate(self, attrs):
         password1 = attrs.get('password')
@@ -135,21 +129,22 @@ class SpecialistRegisterSerializer(serializers.ModelSerializer):
             email=validated_data['email'],
             first_name=validated_data['first_name'],
             last_name=validated_data['last_name'],
-            password=validated_data['password']
+            password=validated_data['password'],
+            img=validated_data['img']
         )
         user.save()
         role = Role.objects.get_or_create(name='specialist')[0]
-        user_role = User_Roles.objects.create(user=user, role=role)
+        User_Roles.objects.create(user=user, role=role)
         return user
 
 
 class AdminRegisterSerializer(serializers.ModelSerializer):
-    password = serializers.CharField(max_length=15, min_length=8, write_only=True)
-    confirmPassword = serializers.CharField(max_length=15, min_length=8, write_only=True)
+    password = serializers.CharField(min_length=8, write_only=True)
+    confirmPassword = serializers.CharField(min_length=8, write_only=True)
 
     class Meta:
         model = User
-        fields = ['email', 'first_name', 'last_name', 'password', 'confirmPassword']
+        fields = ['email', 'first_name', 'last_name', 'password', 'confirmPassword', 'img']
 
     def validate(self, attrs):
         password1 = attrs.get('password')
@@ -167,7 +162,8 @@ class AdminRegisterSerializer(serializers.ModelSerializer):
         )
         user.save()
         role = Role.objects.get_or_create(name='admin')[0]
-        user_role = User_Roles.objects.create(user=user, role=role)
+        print(role)
+        User_Roles.objects.create(user=user, role=role)
         return user
 
 
@@ -412,7 +408,7 @@ class UserInfoSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ['email', 'first_name', 'last_name', 'id', 'img', 'role', 'is_active', 'date_joined' , 'is_verified']
+        fields = ['email', 'first_name', 'last_name', 'id', 'img', 'role', 'is_active', 'date_joined', 'is_verified']
 
     def get_role(self, obj):
         user_role = User_Roles.objects.filter(user=obj).first()
@@ -425,3 +421,7 @@ class CodeSnippetSerializer(serializers.ModelSerializer):
     class Meta:
         model = CodeSnippet
         fields = ['id', 'title', 'code']
+
+
+class PasswordSerializer(serializers.Serializer):
+    password = serializers.CharField(write_only=True, required=True)
