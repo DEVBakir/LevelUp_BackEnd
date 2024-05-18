@@ -158,7 +158,7 @@ class Course(models.Model):
         ('Advanced', 'Advanced')
     ])
     teachers = models.ManyToManyField(Teacher)
-    img_url = models.URLField(max_length=90, null=True, blank=True)
+    img = models.ImageField(upload_to='images/', null=True, default="images/defaultPersone.png");
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 

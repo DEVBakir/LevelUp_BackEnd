@@ -38,7 +38,7 @@ urlpatterns = [
     path('student/<int:student_id>/set_image/', SetStudentImage.as_view(), name='set_student_image'),
     path('api/profile/update/', ProfileUpdateAPIView.as_view(), name='profile-update'),
     path('usersList/', UsersList.as_view(), name='users_list'),
-    path('user/delete/', UserDeleteView.as_view(), name='user_delete'),
+    path('user/delete/<int:user_id>', UserDeleteView.as_view(), name='user_delete'),
     path('userByToken/', GetUserView.as_view(), name='get_user_by_token'),
 
 ]

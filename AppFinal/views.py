@@ -427,10 +427,10 @@ class ProfileInfo(APIView):
 
 
 class UserDeleteView(APIView):
-
-    def delete(self, request, profile_id):
+    permission_classes = [AllowAny]
+    def delete(self, request, user_id):
         try:
-            user = User.objects.get(user_id=profile_id)
+            user = User.objects.get(user_id=user_id)
             user.delete()
             return Response({"message": " User deleted successfully"}, status=status.HTTP_204_NO_CONTENT)
         except User.DoesNotExist:
