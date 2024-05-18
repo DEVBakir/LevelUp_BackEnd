@@ -4,12 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2342ab11-f34e-4bb3-9c41-3924131a2905" name="Changes" comment="Modify Serilaizer User">
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+    <list default="true" id="2342ab11-f34e-4bb3-9c41-3924131a2905" name="Changes" comment="Modify delete Api">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/AppFinal/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/AppFinal/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AppFinal/serializers.py" beforeDir="false" afterPath="$PROJECT_DIR$/AppFinal/serializers.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/AppFinal/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/AppFinal/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/AppFinal/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/AppFinal/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FinalProject/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/FinalProject/settings.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -257,7 +258,15 @@
       <option name="project" value="LOCAL" />
       <updated>1716064808358</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="Modify delete Api">
+      <option name="closed" value="true" />
+      <created>1716067044224</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1716067044224</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -283,6 +292,7 @@
     <MESSAGE value="Add Some Filed to UserInfo &amp;&amp; images" />
     <MESSAGE value="Modify Registre Api" />
     <MESSAGE value="Modify Serilaizer User" />
-    <option name="LAST_COMMIT_MESSAGE" value="Modify Serilaizer User" />
+    <MESSAGE value="Modify delete Api" />
+    <option name="LAST_COMMIT_MESSAGE" value="Modify delete Api" />
   </component>
 </project>

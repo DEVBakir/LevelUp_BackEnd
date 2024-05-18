@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from rest_framework_simplejwt.exceptions import InvalidToken
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
-from rest_framework_simplejwt.tokens import RefreshToken
+from rest_framework_simplejwt.tokens import AccessToken
 
 from .models import User, Student, Teacher, Role, User_Roles, Course, Enroll_Course, CodeSnippet
 from django.contrib.auth import authenticate
@@ -199,7 +199,7 @@ class LoginSerializer(serializers.Serializer):
 
 
 class GetUserSerializer(serializers.Serializer):
-    access_token = serializers.CharField(max_length=200, write_only=True)
+    access_token = serializers.CharField(write_only=True)
     firstname = serializers.CharField(read_only=True)
     lastname = serializers.CharField(read_only=True)
     email = serializers.EmailField(read_only=True)
@@ -211,15 +211,15 @@ class GetUserSerializer(serializers.Serializer):
             raise serializers.ValidationError("Access token is required")
 
         try:
-            refresh_token = RefreshToken(access_token)
-            user_id = refresh_token.payload.get('user_id')
+            access_token = AccessToken(access_token)
+            user_id = access_token.payload.get('user_id')
             user = User.objects.get(id=user_id)
             user_role = User_Roles.objects.get(user=user)
             return {
                 'message': 'success',
                 'username': user.email,
                 'full_name': user.get_full_name(),
-                'user_role': user_role.role,
+                'user_role': user_role.role.name,
             }
         except (InvalidToken, User.DoesNotExist):
             raise serializers.ValidationError("Invalid access token")
@@ -255,7 +255,7 @@ class ResendOTPSerializer(serializers.ModelSerializer):
 class ManageCourseSerializer(serializers.ModelSerializer):
     class Meta:
         model = Course
-        fields = ['title', 'description', 'degree', 'level', 'img_url']
+        fields = ['title', 'description', 'degree', 'level', 'img']
 
     def create(self, validated_data):
         course = Course.objects.create(**validated_data)

@@ -428,9 +428,10 @@ class ProfileInfo(APIView):
 
 class UserDeleteView(APIView):
     permission_classes = [AllowAny]
-    def delete(self, request, user_id):
+
+    def delete(self, request, profile_id):
         try:
-            user = User.objects.get(user_id=user_id)
+            user = User.objects.get(id=profile_id)
             user.delete()
             return Response({"message": " User deleted successfully"}, status=status.HTTP_204_NO_CONTENT)
         except User.DoesNotExist:
@@ -534,6 +535,8 @@ class UsersList(APIView):
 
 
 class GetUserView(APIView):
+    permission_classes = [AllowAny]
+
     def post(self, request, *args, **kwargs):
         serializer = GetUserSerializer(data=request.data)
         if serializer.is_valid():

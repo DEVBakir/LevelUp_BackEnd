@@ -47,21 +47,6 @@ class User(AbstractBaseUser, PermissionsMixin):
         }
 
     def delete(self, *args, **kwargs):
-        # Delete related Student objects
-        student = self.student
-        if student:
-            student.delete()
-
-        # Delete related Teacher objects
-        teacher = self.teacher
-        if teacher:
-            teacher.delete()
-
-        # Delete related OneTimePassword objects
-        onetime_password = self.onetimepassword
-        if onetime_password:
-            onetime_password.delete()
-
         user_roles = self.user_roles
         if user_roles:
             user_roles.delete()
@@ -158,7 +143,7 @@ class Course(models.Model):
         ('Advanced', 'Advanced')
     ])
     teachers = models.ManyToManyField(Teacher)
-    img = models.ImageField(upload_to='images/', null=True, default="images/defaultPersone.png");
+    img_url = models.ImageField(upload_to='images/', null=True, default="images/defaultPersone.png");
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
