@@ -543,3 +543,59 @@ class GetUserView(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
+class LessonCreateAPIView(APIView):
+    def post(self, request):
+        serializer = LessonSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class LessonDetailAPIView(APIView):
+    def get_object(self, pk):
+        try:
+            return Lesson.objects.get(pk=pk)
+        except Lesson.DoesNotExist:
+            return Response({"error": "Lesson not found"}, status=status.HTTP_404_NOT_FOUND)
+
+    def get(self, request, pk):
+        lesson = self.get_object(pk)
+        serializer = LessonSerializer(lesson)
+        return Response(serializer.data)
+
+
+class LessonsByCourseAPIView(APIView):
+    def get(self, request, course_id):
+        lessons = Lesson.objects.filter(course_id=course_id)
+        serializer = LessonSerializer(lessons, many=True)
+        return Response(serializer.data)
+
+
+class SlideCreateAPIView(APIView):
+    def post(self, request):
+        serializer = SlideSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class SlideDetailAPIView(APIView):
+    def get_object(self, pk):
+        try:
+            return Slide.objects.get(pk=pk)
+        except Slide.DoesNotExist:
+            return Response({"error": "Slide not found"}, status=status.HTTP_404_NOT_FOUND)
+
+    def get(self, request, pk):
+        slide = self.get_object(pk)
+        serializer = SlideSerializer(slide)
+        return Response(serializer.data)
+
+
+class SlidesByLessonAPIView(APIView):
+    def get(self, request, lesson_id):
+        slides = Slide.objects.filter(lesson_id=lesson_id)
+        serializer = SlideSerializer(slides, many=True)
+        return Response(serializer.data)
