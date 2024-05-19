@@ -4,10 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2342ab11-f34e-4bb3-9c41-3924131a2905" name="Changes" comment="test">
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+    <list default="true" id="2342ab11-f34e-4bb3-9c41-3924131a2905" name="Changes" comment="add lesson and slide serializers and views and urls">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AppFinal/serializers.py" beforeDir="false" afterPath="$PROJECT_DIR$/AppFinal/serializers.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/AppFinal/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/AppFinal/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/AppFinal/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/AppFinal/views.py" afterDir="false" />
     </list>
@@ -171,7 +169,7 @@
       <workItem from="1715847248232" duration="1901000" />
       <workItem from="1716117951101" duration="2912000" />
       <workItem from="1716127282445" duration="379000" />
-      <workItem from="1716140772893" duration="1739000" />
+      <workItem from="1716140772893" duration="2681000" />
     </task>
     <task id="LOCAL-00001" summary="rf">
       <option name="closed" value="true" />
@@ -293,7 +291,15 @@
       <option name="project" value="LOCAL" />
       <updated>1716127523510</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="add lesson and slide serializers and views and urls">
+      <option name="closed" value="true" />
+      <created>1716142620276</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1716142620276</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -322,6 +328,7 @@
     <MESSAGE value="Modify delete Api" />
     <MESSAGE value="Modify GetUserToken&#10;Modify Delete Token" />
     <MESSAGE value="test" />
-    <option name="LAST_COMMIT_MESSAGE" value="test" />
+    <MESSAGE value="add lesson and slide serializers and views and urls" />
+    <option name="LAST_COMMIT_MESSAGE" value="add lesson and slide serializers and views and urls" />
   </component>
 </project>

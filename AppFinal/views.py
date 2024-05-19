@@ -216,16 +216,16 @@ class SearchCourseView(APIView):
 
     def get(self, request):
         # Get the search keyword from URL parameters
-        keyword = request.GET['keysearch'] if 'keysearch' in request.GET else ''
-        print(keyword)
+        keyword = request.data.get('keysearch')
+        print(f"Keyword: {keyword}")
+        print(f"request: {request.data.get('keysearch')}")
         if keyword:
             # Use Q objects to search across multiple fields
             courses = Course.objects.filter(
                 Q(title__icontains=keyword) |
                 Q(description__icontains=keyword) |
                 Q(degree__icontains=keyword) |
-                Q(level__icontains=keyword) |
-                Q(teachers__name__icontains=keyword)
+                Q(level__icontains=keyword)
             ).distinct()
         else:
             # If no keyword is provided, return all courses
