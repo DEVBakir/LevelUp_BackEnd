@@ -4,12 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2342ab11-f34e-4bb3-9c41-3924131a2905" name="Changes" comment="Modify Registre Api">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AppFinal/serializers.py" beforeDir="false" afterPath="$PROJECT_DIR$/AppFinal/serializers.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AppFinal/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/AppFinal/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AppFinal/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/AppFinal/views.py" afterDir="false" />
-    </list>
+    <list default="true" id="2342ab11-f34e-4bb3-9c41-3924131a2905" name="Changes" comment="Add Lesson and Slide serializers , and their views and urls" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -275,6 +270,7 @@
     <MESSAGE value="Modify Profile Info Api &amp; UserList" />
     <MESSAGE value="Add Some Filed to UserInfo &amp;&amp; images" />
     <MESSAGE value="Modify Registre Api" />
-    <option name="LAST_COMMIT_MESSAGE" value="Modify Registre Api" />
+    <MESSAGE value="Add lesson and slide serializers , and their views and urls" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add lesson and slide serializers , and their views and urls" />
   </component>
 </project>
