@@ -4,9 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2342ab11-f34e-4bb3-9c41-3924131a2905" name="Changes" comment="correct search class code">
+    <list default="true" id="2342ab11-f34e-4bb3-9c41-3924131a2905" name="Changes" comment="add slide and lesson update and delete class views">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AppFinal/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/AppFinal/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/AppFinal/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/AppFinal/views.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -21,6 +20,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="HTML File" />
+        <option value="Python Script" />
       </list>
     </option>
   </component>
@@ -169,7 +169,7 @@
       <workItem from="1715847248232" duration="1901000" />
       <workItem from="1716117951101" duration="2912000" />
       <workItem from="1716127282445" duration="379000" />
-      <workItem from="1716140772893" duration="4440000" />
+      <workItem from="1716140772893" duration="6628000" />
     </task>
     <task id="LOCAL-00001" summary="rf">
       <option name="closed" value="true" />
@@ -307,7 +307,15 @@
       <option name="project" value="LOCAL" />
       <updated>1716147777063</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="add slide and lesson update and delete class views">
+      <option name="closed" value="true" />
+      <created>1716150085951</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1716150085951</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -338,6 +346,7 @@
     <MESSAGE value="test" />
     <MESSAGE value="add lesson and slide serializers and views and urls" />
     <MESSAGE value="correct search class code" />
-    <option name="LAST_COMMIT_MESSAGE" value="correct search class code" />
+    <MESSAGE value="add slide and lesson update and delete class views" />
+    <option name="LAST_COMMIT_MESSAGE" value="add slide and lesson update and delete class views" />
   </component>
 </project>

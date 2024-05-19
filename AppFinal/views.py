@@ -6,6 +6,7 @@ import time
 
 from rest_framework_simplejwt.tokens import RefreshToken
 
+from .permissions import IsAdmin, IsSpecialist
 from .serializers import TeacherRegisterSerializer, SpecialistRegisterSerializer, \
     AdminRegisterSerializer, LoginSerializer, ManageCourseSerializer, PasswordResetRequestSerializer, \
     SetNewPasswordSerializer, ValidateEmailSerializer, ResendOTPSerializer, CourseSerializer, \
@@ -72,6 +73,7 @@ class RegisterTeacherView(GenericAPIView):
 
 
 class RegisterSpecialistView(GenericAPIView):
+    permission_classes = [IsAdmin]
     serializer_class = SpecialistRegisterSerializer
 
     def post(self, request):
@@ -86,6 +88,7 @@ class RegisterSpecialistView(GenericAPIView):
 
 
 class RegisterAdminView(GenericAPIView):
+    permission_classes = [IsAdmin]
     serializer_class = AdminRegisterSerializer
 
     def post(self, request):
@@ -196,6 +199,7 @@ class LoginUserView(GenericAPIView):
 
 
 class ManageCourseView(GenericAPIView):
+    permission_classes = [IsSpecialist]
     serializer_class = ManageCourseSerializer
 
     def post(self, request):
@@ -425,7 +429,7 @@ class ProfileInfo(APIView):
 
 
 class UserDeleteView(APIView):
-    permission_classes = [AllowAny]
+    permission_classes = [IsAdmin]
 
     def delete(self, request, profile_id):
         try:
@@ -468,7 +472,7 @@ class ProfileUpdateAPIView(APIView):
 
 
 class CourseDelete(APIView):
-    permission_classes = [AllowAny]
+    permission_classes = [IsSpecialist]
 
     def delete(self, request, id):
         try:
@@ -482,7 +486,7 @@ class CourseDelete(APIView):
 
 
 class UsersList(APIView):
-    permission_classes = [AllowAny]
+    permission_classes = [IsAdmin]
     pagination_class = PageNumberPagination
 
     def get(self, request):
@@ -543,6 +547,7 @@ class GetUserView(APIView):
 
 
 class LessonCreateAPIView(APIView):
+    permission_classes = [IsSpecialist]
     def post(self, request):
         serializer = LessonSerializer(data=request.data)
         if serializer.is_valid():
@@ -552,6 +557,7 @@ class LessonCreateAPIView(APIView):
 
 
 class LessonDetailAPIView(APIView):
+    permission_classes = [AllowAny]
     def get_object(self, pk):
         try:
             return Lesson.objects.get(pk=pk)
@@ -565,6 +571,7 @@ class LessonDetailAPIView(APIView):
 
 
 class LessonsByCourseAPIView(APIView):
+    permission_classes = [AllowAny]
     def get(self, request, course_id):
         lessons = Lesson.objects.filter(course_id=course_id)
         serializer = LessonSerializer(lessons, many=True)
@@ -572,6 +579,7 @@ class LessonsByCourseAPIView(APIView):
 
 
 class LessonUpdateAPIView(APIView):
+    permission_classes = [IsSpecialist]
     def put(self, request, pk):
         try:
             lesson = Lesson.objects.get(pk=pk)
@@ -586,6 +594,7 @@ class LessonUpdateAPIView(APIView):
 
 
 class LessonDeleteAPIView(APIView):
+    permission_classes = [IsSpecialist]
     def delete(self, request, pk):
         try:
             lesson = Lesson.objects.get(pk=pk)
@@ -597,6 +606,7 @@ class LessonDeleteAPIView(APIView):
 
 
 class SlideCreateAPIView(APIView):
+    permission_classes = [IsSpecialist]
     def post(self, request):
         serializer = SlideSerializer(data=request.data)
         if serializer.is_valid():
@@ -606,6 +616,7 @@ class SlideCreateAPIView(APIView):
 
 
 class SlideDetailAPIView(APIView):
+    permission_classes = [AllowAny]
     def get_object(self, pk):
         try:
             return Slide.objects.get(pk=pk)
@@ -619,6 +630,7 @@ class SlideDetailAPIView(APIView):
 
 
 class SlidesByLessonAPIView(APIView):
+    permission_classes = [AllowAny]
     def get(self, request, lesson_id):
         slides = Slide.objects.filter(lesson_id=lesson_id)
         serializer = SlideSerializer(slides, many=True)
@@ -626,6 +638,7 @@ class SlidesByLessonAPIView(APIView):
 
 
 class SlideUpdateAPIView(APIView):
+    permission_classes = [IsSpecialist]
     def put(self, request, pk):
         try:
             slide = Slide.objects.get(pk=pk)
@@ -640,6 +653,7 @@ class SlideUpdateAPIView(APIView):
 
 
 class SlideDeleteAPIView(APIView):
+    permission_classes = [IsSpecialist]
     def delete(self, request, pk):
         try:
             slide = Slide.objects.get(pk=pk)
