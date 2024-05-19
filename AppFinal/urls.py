@@ -6,7 +6,8 @@ from .views import (RegisterStudentView, RegisterTeacherView, RegisterSpecialist
                     ResendOTPView, TeacherCourseAssignmentView, VerifyUserEmail, ProfileInfo, SetStudentImage,
                     CourseList, ProfileUpdateAPIView, PasswordResetConfirmView, SetNewPasswordView, CourseDelete,
                     UsersList, UserDeleteView, GetUserView, SearchCourseView, LessonCreateAPIView, LessonDetailAPIView,
-                    LessonsByCourseAPIView, SlideCreateAPIView, SlideDetailAPIView, SlidesByLessonAPIView)
+                    LessonsByCourseAPIView, SlideCreateAPIView, SlideDetailAPIView, SlidesByLessonAPIView,
+                    LessonUpdateAPIView, LessonDeleteAPIView, SlideUpdateAPIView, SlideDeleteAPIView)
 from rest_framework_simplejwt.views import (
     TokenObtainPairView,
     TokenRefreshView,
@@ -44,7 +45,11 @@ urlpatterns = [
     path('lessons/', LessonCreateAPIView.as_view(), name='lesson-create'),
     path('lessons/<int:pk>/', LessonDetailAPIView.as_view(), name='lesson-detail'),
     path('courses/<int:course_id>/lessons/', LessonsByCourseAPIView.as_view(), name='lessons-by-course'),
+    path('lessons/<int:pk>/', LessonUpdateAPIView.as_view(), name='lesson-update'),
+    path('lessons/<int:pk>/', LessonDeleteAPIView.as_view(), name='lesson-delete'),
     path('slides/', SlideCreateAPIView.as_view(), name='slide-create'),
     path('slides/<int:pk>/', SlideDetailAPIView.as_view(), name='slide-detail'),
     path('lessons/<int:lesson_id>/slides/', SlidesByLessonAPIView.as_view(), name='slides-by-lesson'),
+    path('slides/<int:pk>/', SlideUpdateAPIView.as_view(), name='slide-update'),
+    path('slides/<int:pk>/', SlideDeleteAPIView.as_view(), name='slide-delete'),
 ]

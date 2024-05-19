@@ -571,6 +571,31 @@ class LessonsByCourseAPIView(APIView):
         return Response(serializer.data)
 
 
+class LessonUpdateAPIView(APIView):
+    def put(self, request, pk):
+        try:
+            lesson = Lesson.objects.get(pk=pk)
+        except Lesson.DoesNotExist:
+            return Response({"error": "Lesson not found"}, status=status.HTTP_404_NOT_FOUND)
+
+        serializer = LessonSerializer(lesson, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class LessonDeleteAPIView(APIView):
+    def delete(self, request, pk):
+        try:
+            lesson = Lesson.objects.get(pk=pk)
+        except Lesson.DoesNotExist:
+            return Response({"error": "Lesson not found"}, status=status.HTTP_404_NOT_FOUND)
+
+        lesson.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+
 class SlideCreateAPIView(APIView):
     def post(self, request):
         serializer = SlideSerializer(data=request.data)
@@ -598,3 +623,28 @@ class SlidesByLessonAPIView(APIView):
         slides = Slide.objects.filter(lesson_id=lesson_id)
         serializer = SlideSerializer(slides, many=True)
         return Response(serializer.data)
+
+
+class SlideUpdateAPIView(APIView):
+    def put(self, request, pk):
+        try:
+            slide = Slide.objects.get(pk=pk)
+        except Slide.DoesNotExist:
+            return Response({"error": "Slide not found"}, status=status.HTTP_404_NOT_FOUND)
+
+        serializer = SlideSerializer(slide, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class SlideDeleteAPIView(APIView):
+    def delete(self, request, pk):
+        try:
+            slide = Slide.objects.get(pk=pk)
+        except Slide.DoesNotExist:
+            return Response({"error": "Slide not found"}, status=status.HTTP_404_NOT_FOUND)
+
+        slide.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
