@@ -427,13 +427,3 @@ class CodeSnippetSerializer(serializers.ModelSerializer):
         fields = ['id', 'title', 'code']
 
 
-class LessonSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Lesson
-        fields = ['id', 'course', 'title', 'order', 'chapter_number', 'description']
-
-
-class SlideSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Slide
-        fields = ['id', 'lesson', 'order', 'description', 'content']
