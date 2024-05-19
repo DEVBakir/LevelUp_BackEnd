@@ -431,7 +431,7 @@ class UserInfoSerializer(serializers.ModelSerializer):
             return user_role.role.name  # Assuming 'name' is the field with the role name
         return None  # Or any default value you prefer
 
-
+#test
 class CodeSnippetSerializer(serializers.ModelSerializer):
     class Meta:
         model = CodeSnippet
