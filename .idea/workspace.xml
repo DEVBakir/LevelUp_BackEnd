@@ -4,9 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2342ab11-f34e-4bb3-9c41-3924131a2905" name="Changes" comment="Modify GetUserToken&#10;Modify Delete Token">
+    <list default="true" id="2342ab11-f34e-4bb3-9c41-3924131a2905" name="Changes" comment="test">
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/AppFinal/serializers.py" beforeDir="false" afterPath="$PROJECT_DIR$/AppFinal/serializers.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AppFinal/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/AppFinal/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/AppFinal/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/AppFinal/views.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -36,7 +38,7 @@
 }</component>
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/DEVBakir/LevelUp_Vercel.git&quot;,
+    &quot;url&quot;: &quot;https://github.com/DEVBakir/LevelUp_BackEnd.git&quot;,
     &quot;accountId&quot;: &quot;51fecca4-d527-42b3-bd94-10756ed498c8&quot;
   }
 }</component>
@@ -116,7 +118,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-python-sdk-5a2391486177-2887949eec09-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-233.13763.11" />
+        <option value="bundled-js-predefined-1d06a55b98c1-91d5c284f522-JavaScript-PY-241.15989.155" />
+        <option value="bundled-python-sdk-babbdf50b680-7c6932dee5e4-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-241.15989.155" />
       </set>
     </attachedChunks>
   </component>
@@ -167,6 +170,8 @@
       <workItem from="1715811267016" duration="4695000" />
       <workItem from="1715847248232" duration="1901000" />
       <workItem from="1716117951101" duration="2912000" />
+      <workItem from="1716127282445" duration="379000" />
+      <workItem from="1716140772893" duration="1739000" />
     </task>
     <task id="LOCAL-00001" summary="rf">
       <option name="closed" value="true" />
@@ -280,7 +285,15 @@
       <option name="project" value="LOCAL" />
       <updated>1716073675440</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="test">
+      <option name="closed" value="true" />
+      <created>1716127523510</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1716127523510</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -308,6 +321,7 @@
     <MESSAGE value="Modify Serilaizer User" />
     <MESSAGE value="Modify delete Api" />
     <MESSAGE value="Modify GetUserToken&#10;Modify Delete Token" />
-    <option name="LAST_COMMIT_MESSAGE" value="Modify GetUserToken&#10;Modify Delete Token" />
+    <MESSAGE value="test" />
+    <option name="LAST_COMMIT_MESSAGE" value="test" />
   </component>
 </project>

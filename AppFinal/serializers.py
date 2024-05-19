@@ -3,7 +3,7 @@ from rest_framework_simplejwt.exceptions import InvalidToken
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework_simplejwt.tokens import AccessToken
 
-from .models import User, Student, Teacher, Role, User_Roles, Course, Enroll_Course, CodeSnippet
+from .models import User, Student, Teacher, Role, User_Roles, Course, Enroll_Course, CodeSnippet, Lesson, Slide
 from django.contrib.auth import authenticate
 from rest_framework.exceptions import AuthenticationFailed, ValidationError
 from django.contrib.auth.tokens import PasswordResetTokenGenerator
@@ -270,7 +270,7 @@ class ResendOTPSerializer(serializers.ModelSerializer):
 class ManageCourseSerializer(serializers.ModelSerializer):
     class Meta:
         model = Course
-        fields = ['title', 'description', 'degree', 'level', 'img']
+        fields = ['title', 'description', 'degree', 'level', 'img_url']
 
     def create(self, validated_data):
         course = Course.objects.create(**validated_data)
@@ -431,6 +431,7 @@ class UserInfoSerializer(serializers.ModelSerializer):
             return user_role.role.name  # Assuming 'name' is the field with the role name
         return None  # Or any default value you prefer
 
+
 #test
 class CodeSnippetSerializer(serializers.ModelSerializer):
     class Meta:
@@ -440,3 +441,15 @@ class CodeSnippetSerializer(serializers.ModelSerializer):
 
 class PasswordSerializer(serializers.Serializer):
     password = serializers.CharField(write_only=True, required=True)
+
+
+class LessonSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Lesson
+        fields = ['id', 'course', 'title', 'order', 'chapter_number', 'description']
+
+
+class SlideSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Slide
+        fields = ['id', 'lesson', 'order', 'description', 'content']
