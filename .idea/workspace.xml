@@ -4,13 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2342ab11-f34e-4bb3-9c41-3924131a2905" name="Changes" comment="Modify delete Api">
+    <list default="true" id="2342ab11-f34e-4bb3-9c41-3924131a2905" name="Changes" comment="Modify GetUserToken&#10;Modify Delete Token">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AppFinal/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/AppFinal/models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/AppFinal/serializers.py" beforeDir="false" afterPath="$PROJECT_DIR$/AppFinal/serializers.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AppFinal/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/AppFinal/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/AppFinal/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/AppFinal/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FinalProject/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/FinalProject/settings.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -169,6 +166,7 @@
       <workItem from="1715808119201" duration="2118000" />
       <workItem from="1715811267016" duration="4695000" />
       <workItem from="1715847248232" duration="1901000" />
+      <workItem from="1716117951101" duration="2912000" />
     </task>
     <task id="LOCAL-00001" summary="rf">
       <option name="closed" value="true" />
@@ -266,7 +264,23 @@
       <option name="project" value="LOCAL" />
       <updated>1716067044224</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="Modify GetUserToken&#10;Modify Delete Token">
+      <option name="closed" value="true" />
+      <created>1716073650009</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1716073650009</updated>
+    </task>
+    <task id="LOCAL-00014" summary="Modify GetUserToken&#10;Modify Delete Token">
+      <option name="closed" value="true" />
+      <created>1716073675440</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1716073675440</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -293,6 +307,7 @@
     <MESSAGE value="Modify Registre Api" />
     <MESSAGE value="Modify Serilaizer User" />
     <MESSAGE value="Modify delete Api" />
-    <option name="LAST_COMMIT_MESSAGE" value="Modify delete Api" />
+    <MESSAGE value="Modify GetUserToken&#10;Modify Delete Token" />
+    <option name="LAST_COMMIT_MESSAGE" value="Modify GetUserToken&#10;Modify Delete Token" />
   </component>
 </project>

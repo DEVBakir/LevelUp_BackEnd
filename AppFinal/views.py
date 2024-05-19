@@ -30,29 +30,25 @@ from .serializers import StudentRegisterSerializer
 class RegisterStudentView(GenericAPIView):
     permission_classes = [AllowAny]
     serializer_class = StudentRegisterSerializer
+    serializer_login = LoginSerializer
 
     def post(self, request):
         serializer = self.serializer_class(data=request.data)
         if serializer.is_valid(raise_exception=True):
-            student = serializer.save()
-            user = serializer.data['user']
+            serializer.save()
+            user = request.data.get('user')
             email = user['email']
             send_code(email)  # Access the user's email through the related user object
-
-            # Create login serializer instance with the user's credentials
-            login_serializer = LoginSerializer(data={'email': email, 'password': request.data['password']})
-            login_serializer.is_valid(raise_exception=True)
-            login_data = login_serializer.validated_data
-
-            # Return user data along with access and refresh tokens
-            return Response({
-                'data': serializer.data['user'],
-                'degree': serializer.validated_data.get('degree'),
-                'speciality': serializer.validated_data.get('speciality'),
-                'university': serializer.validated_data.get('university'),
-                'access_token': login_data['access_token'],
-                'refresh_token': login_data['refresh_token']
-            }, status=status.HTTP_201_CREATED)
+            # Auto login
+            login_data = {
+                'email': user['email'],
+                'password': user['password']
+            }
+            login_serializer = self.serializer_login(data=login_data)
+            if login_serializer.is_valid():
+                return Response(login_serializer.data, status=status.HTTP_200_OK)
+            else:
+                return Response(login_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 

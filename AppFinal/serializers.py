@@ -5,7 +5,7 @@ from rest_framework_simplejwt.tokens import AccessToken
 
 from .models import User, Student, Teacher, Role, User_Roles, Course, Enroll_Course, CodeSnippet
 from django.contrib.auth import authenticate
-from rest_framework.exceptions import AuthenticationFailed
+from rest_framework.exceptions import AuthenticationFailed, ValidationError
 from django.contrib.auth.tokens import PasswordResetTokenGenerator
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.contrib.sites.shortcuts import get_current_site
@@ -17,13 +17,28 @@ from rest_framework_simplejwt.views import TokenObtainPairView
 
 
 class UserSerializer(serializers.ModelSerializer):
+    email = serializers.EmailField()
+    first_name = serializers.CharField(max_length=100)
+    last_name = serializers.CharField(max_length=100)
+    password = serializers.CharField(max_length=30, min_length=8, write_only=True)
+    confirmPassword = serializers.CharField(max_length=30, min_length=8, write_only=True)
+
     class Meta:
         model = User
-        fields = ['email', 'first_name', 'last_name', 'img']
+        fields = ['email', 'first_name', 'last_name', 'password', 'confirmPassword']
+
+    def validate(self, attrs):
+        if attrs.get('password') != attrs.get('confirmPassword'):
+            raise serializers.ValidationError({"password": "Passwords do not match."})
+        return attrs
+
+    def create(self, validated_data):
+        validated_data.pop('confirmPassword')  # Remove confirmPassword from the data
+        user = User.objects.create_user(**validated_data)
+        return user
 
 
 class StudentRegisterSerializer(serializers.ModelSerializer):
-    # Define UserSerializer as a nested serializer
     user = UserSerializer()
 
     degree = serializers.CharField(max_length=30, required=True)
@@ -36,7 +51,6 @@ class StudentRegisterSerializer(serializers.ModelSerializer):
         fields = ['user', 'degree', 'university', 'speciality', 'courses_of_interest']
 
     def validate(self, attrs):
-        # Access nested user data correctly
         user_data = attrs.get('user')
         password1 = user_data.get('password')
         password2 = user_data.get('confirmPassword')
@@ -45,28 +59,17 @@ class StudentRegisterSerializer(serializers.ModelSerializer):
         return attrs
 
     def create(self, validated_data):
-        # Extract nested user data and create user object
         user_data = validated_data.pop('user')
-        email = user_data.pop('email')
-        first_name = user_data.pop('first_name')
-        last_name = user_data.pop('last_name')
-        password = user_data.pop('password')
+        user_serializer = UserSerializer(data=user_data)
+        user_serializer.is_valid(raise_exception=True)
+        user = user_serializer.save()
 
-        user = User.objects.create_user(
-            email=email,
-            first_name=first_name,
-            last_name=last_name,
-            password=password
-        )
-
-        # Create student object and associate with user
         student = Student.objects.create(user=user, **validated_data)
 
-        # Create role and user_role objects
-        role = Role.objects.get_or_create(name='student')[0]
+        role, created = Role.objects.get_or_create(name='student')
         User_Roles.objects.create(user=user, role=role)
-        validated_data['user'] = user
-        return validated_data
+
+        return student
 
 
 class TeacherRegisterSerializer(serializers.ModelSerializer):
@@ -208,21 +211,33 @@ class GetUserSerializer(serializers.Serializer):
     def validate(self, attrs):
         access_token = attrs.get('access_token')
         if not access_token:
-            raise serializers.ValidationError("Access token is required")
+            raise ValidationError("Access token is required")
 
         try:
+            # Decode and validate the access token
             access_token = AccessToken(access_token)
             user_id = access_token.payload.get('user_id')
+
+            if not user_id:
+                raise ValidationError("Invalid access token: no user ID found")
+
+            # Fetch the user and the user's role
             user = User.objects.get(id=user_id)
             user_role = User_Roles.objects.get(user=user)
+
+            # Return the validated data
             return {
-                'message': 'success',
-                'username': user.email,
-                'full_name': user.get_full_name(),
-                'user_role': user_role.role.name,
+                'email': user.email,
+                'firstname': user.first_name,
+                'lastname': user.last_name,
+                'role': user_role.role.name,
             }
-        except (InvalidToken, User.DoesNotExist):
-            raise serializers.ValidationError("Invalid access token")
+        except User.DoesNotExist:
+            raise ValidationError("Invalid access token: user not found")
+        except User_Roles.DoesNotExist:
+            raise ValidationError("User role not found")
+        except Exception as e:
+            raise ValidationError(f"An error occurred: {str(e)}")
 
 
 class ValidateEmailSerializer(serializers.ModelSerializer):
