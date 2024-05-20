@@ -6,12 +6,12 @@ import time
 
 from rest_framework_simplejwt.tokens import RefreshToken
 
-from .permissions import IsAdmin, IsSpecialist
+from .permissions import IsAdmin, IsSpecialist, IsStudent
 from .serializers import TeacherRegisterSerializer, SpecialistRegisterSerializer, \
     AdminRegisterSerializer, LoginSerializer, ManageCourseSerializer, PasswordResetRequestSerializer, \
     SetNewPasswordSerializer, ValidateEmailSerializer, ResendOTPSerializer, CourseSerializer, \
     TeacherCourseAssignmentSerializer, TeacherSerializer, ProfileUpdateSerializer, UserInfoSerializer, \
-    GetUserSerializer, LessonSerializer, SlideSerializer, CourseUpdateSerializer
+    GetUserSerializer, LessonSerializer, SlideSerializer, CourseUpdateSerializer, EnrollCourseCreateSerializer
 from rest_framework.permissions import AllowAny
 from .utils import send_code
 from .models import OneTimePassword, User, Course, Badge, User_Roles, Teacher, Lesson, Slide
@@ -691,4 +691,28 @@ class CourseUpdateView(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-#test
+class EnrollCourseCreateAPIView(APIView):
+    permission_classes = [IsStudent]
+
+    def post(self, request):
+        serializer = EnrollCourseCreateSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class EnrollCourseUpdateAPIView(APIView):
+    permission_classes = [IsStudent]
+
+    def put(self, request, pk):
+        try:
+            enrolled = Enroll_Course.objects.get(pk=pk)
+        except Slide.DoesNotExist:
+            return Response({"error": "Enrolled not found"}, status=status.HTTP_404_NOT_FOUND)
+
+        serializer = SlideSerializer(enrolled, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

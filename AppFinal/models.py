@@ -197,7 +197,7 @@ class Game(models.Model):
 class Enroll_Course(models.Model):
     course = models.ForeignKey(Course, on_delete=models.CASCADE)
     student = models.ForeignKey(Student, on_delete=models.CASCADE)
-    progress = models.IntegerField()
+    progress = models.IntegerField(default=0)
     score_earned = models.IntegerField(default=0)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
