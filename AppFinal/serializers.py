@@ -271,7 +271,7 @@ class ResendOTPSerializer(serializers.ModelSerializer):
 class ManageCourseSerializer(serializers.ModelSerializer):
     class Meta:
         model = Course
-        fields = ['title', 'description', 'degree', 'level', 'img_url', 'is_draft']
+        fields = ['title', 'description', 'degree', 'level', 'img_url', 'is_draft', 'category']
 
 
 class PasswordResetRequestSerializer(serializers.Serializer):

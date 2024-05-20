@@ -147,6 +147,7 @@ class Course(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     is_draft = models.BooleanField(default=True)
+    category = models.CharField(max_length=28,null=True)
 
     def level_order(self):
         levels = {'Beginner': 1, 'Intermediate': 2, 'Advanced': 3}
