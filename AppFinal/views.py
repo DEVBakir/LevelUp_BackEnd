@@ -199,7 +199,7 @@ class LoginUserView(GenericAPIView):
 
 
 class ManageCourseView(GenericAPIView):
-    permission_classes = [IsSpecialist]
+    permission_classes = [AllowAny]
     serializer_class = ManageCourseSerializer
 
     def post(self, request):
@@ -662,3 +662,4 @@ class SlideDeleteAPIView(APIView):
 
         slide.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+

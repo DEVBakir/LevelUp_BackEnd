@@ -36,7 +36,9 @@ class UserSerializer(serializers.ModelSerializer):
         validated_data.pop('confirmPassword')  # Remove confirmPassword from the data
         user = User.objects.create_user(**validated_data)
         return user
-#test
+
+
+# test
 
 class StudentRegisterSerializer(serializers.ModelSerializer):
     user = UserSerializer()
@@ -269,11 +271,7 @@ class ResendOTPSerializer(serializers.ModelSerializer):
 class ManageCourseSerializer(serializers.ModelSerializer):
     class Meta:
         model = Course
-        fields = ['title', 'description', 'degree', 'level', 'img_url']
-
-    def create(self, validated_data):
-        course = Course.objects.create(**validated_data)
-        return course
+        fields = ['title', 'description', 'degree', 'level', 'img_url', 'is_draft']
 
 
 class PasswordResetRequestSerializer(serializers.Serializer):
@@ -431,7 +429,7 @@ class UserInfoSerializer(serializers.ModelSerializer):
         return None  # Or any default value you prefer
 
 
-#test
+# test
 class CodeSnippetSerializer(serializers.ModelSerializer):
     class Meta:
         model = CodeSnippet

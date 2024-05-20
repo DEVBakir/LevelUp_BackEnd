@@ -146,6 +146,7 @@ class Course(models.Model):
     img_url = models.ImageField(upload_to='images/', null=True, default="images/defaultPersone.png");
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    is_draft = models.BooleanField(default=True)
 
     def level_order(self):
         levels = {'Beginner': 1, 'Intermediate': 2, 'Advanced': 3}
