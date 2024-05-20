@@ -6,13 +6,15 @@ import time
 
 from rest_framework_simplejwt.tokens import RefreshToken
 
+from .permissions import IsAdmin, IsSpecialist
 from .serializers import TeacherRegisterSerializer, SpecialistRegisterSerializer, \
     AdminRegisterSerializer, LoginSerializer, ManageCourseSerializer, PasswordResetRequestSerializer, \
     SetNewPasswordSerializer, ValidateEmailSerializer, ResendOTPSerializer, CourseSerializer, \
-    TeacherCourseAssignmentSerializer, TeacherSerializer, ProfileUpdateSerializer, UserInfoSerializer, GetUserSerializer
+    TeacherCourseAssignmentSerializer, TeacherSerializer, ProfileUpdateSerializer, UserInfoSerializer, \
+    GetUserSerializer, LessonSerializer, SlideSerializer
 from rest_framework.permissions import AllowAny
 from .utils import send_code
-from .models import OneTimePassword, User, Course, Badge, User_Roles, Teacher
+from .models import OneTimePassword, User, Course, Badge, User_Roles, Teacher, Lesson, Slide
 from django.utils.http import urlsafe_base64_decode
 from django.utils.encoding import smart_str, DjangoUnicodeDecodeError
 from django.contrib.auth.tokens import PasswordResetTokenGenerator
@@ -71,6 +73,7 @@ class RegisterTeacherView(GenericAPIView):
 
 
 class RegisterSpecialistView(GenericAPIView):
+    permission_classes = [IsAdmin]
     serializer_class = SpecialistRegisterSerializer
 
     def post(self, request):
@@ -85,6 +88,7 @@ class RegisterSpecialistView(GenericAPIView):
 
 
 class RegisterAdminView(GenericAPIView):
+    permission_classes = [IsAdmin]
     serializer_class = AdminRegisterSerializer
 
     def post(self, request):
@@ -195,6 +199,7 @@ class LoginUserView(GenericAPIView):
 
 
 class ManageCourseView(GenericAPIView):
+    permission_classes = [IsSpecialist]
     serializer_class = ManageCourseSerializer
 
     def post(self, request):
@@ -210,20 +215,21 @@ class ManageCourseView(GenericAPIView):
 
 
 class SearchCourseView(APIView):
+    permission_classes = [AllowAny]
     serializer_class = ManageCourseSerializer
 
     def get(self, request):
         # Get the search keyword from URL parameters
-        keyword = request.GET.get('keyword', '')
-
+        keyword = request.data.get('keysearch')
+        print(f"Keyword: {keyword}")
+        print(f"request: {request.data.get('keysearch')}")
         if keyword:
             # Use Q objects to search across multiple fields
             courses = Course.objects.filter(
                 Q(title__icontains=keyword) |
                 Q(description__icontains=keyword) |
                 Q(degree__icontains=keyword) |
-                Q(level__icontains=keyword) |
-                Q(teachers__name__icontains=keyword)
+                Q(level__icontains=keyword)
             ).distinct()
         else:
             # If no keyword is provided, return all courses
@@ -257,7 +263,7 @@ class PasswordResetConfirmView(GenericAPIView):
             if not PasswordResetTokenGenerator().check_token(user, token):
                 return Response({'message': 'token is invalid'}, status=status.HTTP_401_UNAUTHORIZED)
             return Response({
-                'seccess': True,
+                'success': True,
                 'message': 'credentials is valid',
                 'token': token,
                 'uidb64': uidb64
@@ -423,7 +429,7 @@ class ProfileInfo(APIView):
 
 
 class UserDeleteView(APIView):
-    permission_classes = [AllowAny]
+    permission_classes = [IsAdmin]
 
     def delete(self, request, profile_id):
         try:
@@ -466,7 +472,7 @@ class ProfileUpdateAPIView(APIView):
 
 
 class CourseDelete(APIView):
-    permission_classes = [AllowAny]
+    permission_classes = [IsSpecialist]
 
     def delete(self, request, id):
         try:
@@ -480,7 +486,7 @@ class CourseDelete(APIView):
 
 
 class UsersList(APIView):
-    permission_classes = [AllowAny]
+    permission_classes = [IsAdmin]
     pagination_class = PageNumberPagination
 
     def get(self, request):
@@ -538,3 +544,121 @@ class GetUserView(APIView):
         if serializer.is_valid():
             return Response(serializer.validated_data, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class LessonCreateAPIView(APIView):
+    permission_classes = [IsSpecialist]
+    def post(self, request):
+        serializer = LessonSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class LessonDetailAPIView(APIView):
+    permission_classes = [AllowAny]
+    def get_object(self, pk):
+        try:
+            return Lesson.objects.get(pk=pk)
+        except Lesson.DoesNotExist:
+            return Response({"error": "Lesson not found"}, status=status.HTTP_404_NOT_FOUND)
+
+    def get(self, request, pk):
+        lesson = self.get_object(pk)
+        serializer = LessonSerializer(lesson)
+        return Response(serializer.data)
+
+
+class LessonsByCourseAPIView(APIView):
+    permission_classes = [AllowAny]
+    def get(self, request, course_id):
+        lessons = Lesson.objects.filter(course_id=course_id)
+        serializer = LessonSerializer(lessons, many=True)
+        return Response(serializer.data)
+
+
+class LessonUpdateAPIView(APIView):
+    permission_classes = [IsSpecialist]
+    def put(self, request, pk):
+        try:
+            lesson = Lesson.objects.get(pk=pk)
+        except Lesson.DoesNotExist:
+            return Response({"error": "Lesson not found"}, status=status.HTTP_404_NOT_FOUND)
+
+        serializer = LessonSerializer(lesson, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class LessonDeleteAPIView(APIView):
+    permission_classes = [IsSpecialist]
+    def delete(self, request, pk):
+        try:
+            lesson = Lesson.objects.get(pk=pk)
+        except Lesson.DoesNotExist:
+            return Response({"error": "Lesson not found"}, status=status.HTTP_404_NOT_FOUND)
+
+        lesson.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+class SlideCreateAPIView(APIView):
+    permission_classes = [IsSpecialist]
+    def post(self, request):
+        serializer = SlideSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class SlideDetailAPIView(APIView):
+    permission_classes = [AllowAny]
+    def get_object(self, pk):
+        try:
+            return Slide.objects.get(pk=pk)
+        except Slide.DoesNotExist:
+            return Response({"error": "Slide not found"}, status=status.HTTP_404_NOT_FOUND)
+
+    def get(self, request, pk):
+        slide = self.get_object(pk)
+        serializer = SlideSerializer(slide)
+        return Response(serializer.data)
+
+
+class SlidesByLessonAPIView(APIView):
+    permission_classes = [AllowAny]
+    def get(self, request, lesson_id):
+        slides = Slide.objects.filter(lesson_id=lesson_id)
+        serializer = SlideSerializer(slides, many=True)
+        return Response(serializer.data)
+
+
+class SlideUpdateAPIView(APIView):
+    permission_classes = [IsSpecialist]
+    def put(self, request, pk):
+        try:
+            slide = Slide.objects.get(pk=pk)
+        except Slide.DoesNotExist:
+            return Response({"error": "Slide not found"}, status=status.HTTP_404_NOT_FOUND)
+
+        serializer = SlideSerializer(slide, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class SlideDeleteAPIView(APIView):
+    permission_classes = [IsSpecialist]
+    def delete(self, request, pk):
+        try:
+            slide = Slide.objects.get(pk=pk)
+        except Slide.DoesNotExist:
+            return Response({"error": "Slide not found"}, status=status.HTTP_404_NOT_FOUND)
+
+        slide.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
