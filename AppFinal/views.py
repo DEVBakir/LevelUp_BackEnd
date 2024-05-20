@@ -678,3 +678,6 @@ class CourseUpdateView(generics.UpdateAPIView):
     permission_classes = [AllowAny]
     queryset = Course.objects.all()
     serializer_class = CourseSerializer
+
+
+#test
