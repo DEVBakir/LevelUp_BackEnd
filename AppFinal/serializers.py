@@ -113,8 +113,8 @@ class TeacherRegisterSerializer(serializers.ModelSerializer):
 
 
 class SpecialistRegisterSerializer(serializers.ModelSerializer):
-    password = serializers.CharField(max_length=15, min_length=8, write_only=True)
-    confirmPassword = serializers.CharField(max_length=15, min_length=8, write_only=True)
+    password = serializers.CharField(min_length=8, write_only=True)
+    confirmPassword = serializers.CharField(min_length=8, write_only=True)
 
     class Meta:
         model = User
@@ -133,7 +133,6 @@ class SpecialistRegisterSerializer(serializers.ModelSerializer):
             first_name=validated_data['first_name'],
             last_name=validated_data['last_name'],
             password=validated_data['password'],
-            img=validated_data['img']
         )
         user.save()
         role = Role.objects.get_or_create(name='specialist')[0]
