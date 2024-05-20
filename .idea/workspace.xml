@@ -4,11 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2342ab11-f34e-4bb3-9c41-3924131a2905" name="Changes" comment="Some Modification">
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+    <list default="true" id="2342ab11-f34e-4bb3-9c41-3924131a2905" name="Changes" comment="Modify Add Course">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AppFinal/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/AppFinal/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AppFinal/serializers.py" beforeDir="false" afterPath="$PROJECT_DIR$/AppFinal/serializers.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AppFinal/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/AppFinal/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/AppFinal/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/AppFinal/views.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -290,7 +288,15 @@
       <option name="project" value="LOCAL" />
       <updated>1716189228200</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="Modify Add Course">
+      <option name="closed" value="true" />
+      <created>1716190261622</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1716190261622</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -319,6 +325,7 @@
     <MESSAGE value="Modify delete Api" />
     <MESSAGE value="Modify GetUserToken&#10;Modify Delete Token" />
     <MESSAGE value="Some Modification" />
-    <option name="LAST_COMMIT_MESSAGE" value="Some Modification" />
+    <MESSAGE value="Modify Add Course" />
+    <option name="LAST_COMMIT_MESSAGE" value="Modify Add Course" />
   </component>
 </project>

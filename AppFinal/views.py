@@ -24,7 +24,7 @@ from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework.permissions import IsAuthenticated
 
 from rest_framework.response import Response
-from rest_framework import status
+from rest_framework import status, generics
 from rest_framework.generics import GenericAPIView
 from .serializers import StudentRegisterSerializer
 
@@ -548,6 +548,7 @@ class GetUserView(APIView):
 
 class LessonCreateAPIView(APIView):
     permission_classes = [IsSpecialist]
+
     def post(self, request):
         serializer = LessonSerializer(data=request.data)
         if serializer.is_valid():
@@ -558,6 +559,7 @@ class LessonCreateAPIView(APIView):
 
 class LessonDetailAPIView(APIView):
     permission_classes = [AllowAny]
+
     def get_object(self, pk):
         try:
             return Lesson.objects.get(pk=pk)
@@ -572,6 +574,7 @@ class LessonDetailAPIView(APIView):
 
 class LessonsByCourseAPIView(APIView):
     permission_classes = [AllowAny]
+
     def get(self, request, course_id):
         lessons = Lesson.objects.filter(course_id=course_id)
         serializer = LessonSerializer(lessons, many=True)
@@ -580,6 +583,7 @@ class LessonsByCourseAPIView(APIView):
 
 class LessonUpdateAPIView(APIView):
     permission_classes = [IsSpecialist]
+
     def put(self, request, pk):
         try:
             lesson = Lesson.objects.get(pk=pk)
@@ -595,6 +599,7 @@ class LessonUpdateAPIView(APIView):
 
 class LessonDeleteAPIView(APIView):
     permission_classes = [IsSpecialist]
+
     def delete(self, request, pk):
         try:
             lesson = Lesson.objects.get(pk=pk)
@@ -607,6 +612,7 @@ class LessonDeleteAPIView(APIView):
 
 class SlideCreateAPIView(APIView):
     permission_classes = [IsSpecialist]
+
     def post(self, request):
         serializer = SlideSerializer(data=request.data)
         if serializer.is_valid():
@@ -617,6 +623,7 @@ class SlideCreateAPIView(APIView):
 
 class SlideDetailAPIView(APIView):
     permission_classes = [AllowAny]
+
     def get_object(self, pk):
         try:
             return Slide.objects.get(pk=pk)
@@ -631,6 +638,7 @@ class SlideDetailAPIView(APIView):
 
 class SlidesByLessonAPIView(APIView):
     permission_classes = [AllowAny]
+
     def get(self, request, lesson_id):
         slides = Slide.objects.filter(lesson_id=lesson_id)
         serializer = SlideSerializer(slides, many=True)
@@ -639,6 +647,7 @@ class SlidesByLessonAPIView(APIView):
 
 class SlideUpdateAPIView(APIView):
     permission_classes = [IsSpecialist]
+
     def put(self, request, pk):
         try:
             slide = Slide.objects.get(pk=pk)
@@ -654,6 +663,7 @@ class SlideUpdateAPIView(APIView):
 
 class SlideDeleteAPIView(APIView):
     permission_classes = [IsSpecialist]
+
     def delete(self, request, pk):
         try:
             slide = Slide.objects.get(pk=pk)
@@ -663,3 +673,8 @@ class SlideDeleteAPIView(APIView):
         slide.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
+
+class CourseUpdateView(generics.UpdateAPIView):
+    permission_classes = [AllowAny]
+    queryset = Course.objects.all()
+    serializer_class = CourseSerializer
