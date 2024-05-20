@@ -36,7 +36,7 @@ class UserSerializer(serializers.ModelSerializer):
         validated_data.pop('confirmPassword')  # Remove confirmPassword from the data
         user = User.objects.create_user(**validated_data)
         return user
-
+#test
 
 class StudentRegisterSerializer(serializers.ModelSerializer):
     user = UserSerializer()
