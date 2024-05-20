@@ -28,7 +28,7 @@ urlpatterns = [
     path('course/modify/<int:pk>/', CourseUpdateView.as_view(), name='create_course'),
     path('course/create/', ManageCourseView.as_view(), name='create_course'),
     path('courses/search/', SearchCourseView.as_view(), name='search'),
-    path('course/delete/<int:id>', CourseDelete.as_view(), name='delete_course'),
+    path('course/delete/<int:pk>', CourseDelete.as_view(), name='delete_course'),
     path('password_reset', PasswordResetRequestView.as_view(), name='reset_password'),
     path('password_reset_confirm/<uidb64>/<token>', PasswordResetConfirmView.as_view(),
          name='reset_password_confirm'),

@@ -11,7 +11,7 @@ from .serializers import TeacherRegisterSerializer, SpecialistRegisterSerializer
     AdminRegisterSerializer, LoginSerializer, ManageCourseSerializer, PasswordResetRequestSerializer, \
     SetNewPasswordSerializer, ValidateEmailSerializer, ResendOTPSerializer, CourseSerializer, \
     TeacherCourseAssignmentSerializer, TeacherSerializer, ProfileUpdateSerializer, UserInfoSerializer, \
-    GetUserSerializer, LessonSerializer, SlideSerializer
+    GetUserSerializer, LessonSerializer, SlideSerializer, CourseUpdateSerializer
 from rest_framework.permissions import AllowAny
 from .utils import send_code
 from .models import OneTimePassword, User, Course, Badge, User_Roles, Teacher, Lesson, Slide
@@ -229,11 +229,12 @@ class SearchCourseView(APIView):
                 Q(title__icontains=keyword) |
                 Q(description__icontains=keyword) |
                 Q(degree__icontains=keyword) |
-                Q(level__icontains=keyword)
+                Q(level__icontains=keyword),
+                is_draft=False
             ).distinct()
         else:
             # If no keyword is provided, return all courses
-            courses = Course.objects.all()
+            courses = Course.objects.get(is_draft=False)
 
         # Serialize the results
         serializer = self.serializer_class(courses, many=True)
@@ -288,7 +289,7 @@ class CourseList(APIView):
 
     def get(self, request):
         paginator = self.pagination_class()
-        courses = Course.objects.all()
+        courses = Course.objects.get(is_draft=False)
 
         # Extract query parameters
         level_filter = request.query_params.get('level')
@@ -474,9 +475,9 @@ class ProfileUpdateAPIView(APIView):
 class CourseDelete(APIView):
     permission_classes = [IsSpecialist]
 
-    def delete(self, request, id):
+    def delete(self, request, pk):
         try:
-            course = Course.objects.get(pk=id)
+            course = Course.objects.get(pk=pk)
             course.delete()
             return Response({"message": "Course deleted successfully"}, status=status.HTTP_204_NO_CONTENT)
         except Course.DoesNotExist:
@@ -674,10 +675,20 @@ class SlideDeleteAPIView(APIView):
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 
-class CourseUpdateView(generics.UpdateAPIView):
-    permission_classes = [AllowAny]
-    queryset = Course.objects.all()
-    serializer_class = CourseSerializer
+class CourseUpdateView(APIView):
+    permission_classes = [IsSpecialist]
+
+    def put(self, request, pk):
+        try:
+            course = Course.objects.get(pk=pk)
+        except Course.DoesNotExist:
+            return Response({"error": "Course not found"}, status=status.HTTP_404_NOT_FOUND)
+
+        serializer = CourseUpdateSerializer(course, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 #test

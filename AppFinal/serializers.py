@@ -450,3 +450,9 @@ class SlideSerializer(serializers.ModelSerializer):
     class Meta:
         model = Slide
         fields = ['id', 'lesson', 'order', 'description', 'content']
+
+
+class CourseUpdateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Course
+        fields = ['id', 'title', 'description', 'degree', 'level', 'img_url', 'created_at', 'updated_at', 'is_draft', 'category']
