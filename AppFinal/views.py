@@ -24,7 +24,7 @@ from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework.permissions import IsAuthenticated
 
 from rest_framework.response import Response
-from rest_framework import status, generics
+from rest_framework import status, generics, viewsets
 from rest_framework.generics import GenericAPIView
 from .serializers import StudentRegisterSerializer
 
@@ -548,7 +548,7 @@ class GetUserView(APIView):
 
 
 class LessonCreateAPIView(APIView):
-    permission_classes = [IsSpecialist]
+    permission_classes = [AllowAny]
 
     def post(self, request):
         serializer = LessonSerializer(data=request.data)
@@ -612,7 +612,7 @@ class LessonDeleteAPIView(APIView):
 
 
 class SlideCreateAPIView(APIView):
-    permission_classes = [IsSpecialist]
+    permission_classes = [AllowAny]
 
     def post(self, request):
         serializer = SlideSerializer(data=request.data)
@@ -716,3 +716,47 @@ class EnrollCourseUpdateAPIView(APIView):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class CourseCreateAPIView(APIView):
+    permission_classes = [AllowAny]
+
+    def post(self, request, *args, **kwargs):
+        data = request.data
+
+        # Create Course instance
+        course_data = {
+            'title': data.get('title'),
+            'description': data.get('description'),
+            'img_url': data.get('img_url'),
+            'degree': data.get('degree'),
+            'level': data.get('level'),
+            'category': data.get('category'),
+            'is_draft': False  # Assuming it's not a draft upon creation
+        }
+        # Creat Course
+        course_serializer = CourseSerializer(data=course_data)
+        course_serializer.is_valid(raise_exception=True)
+        course = course_serializer.save()
+        print(course.id)
+        # Create Lessons and associated Slides
+        lessons_data = data.get('lessons', [])
+        for lesson_data in lessons_data:
+            slides_data = lesson_data.pop('slides', [])
+
+            # Create Lesson instance
+            lesson_data['course'] = course.id  # Link lesson to the course
+            lesson_serializer = LessonSerializer(data=lesson_data)
+            lesson_serializer.is_valid(raise_exception=True)
+            lesson = lesson_serializer.save()
+            print(lesson.id)
+
+            # Create Slides for this Lesson
+            for slide_data in slides_data:
+                slide_data['lesson'] = lesson.id  # Link slide to the lesson
+                slide_serializer = SlideSerializer(data=slide_data)
+                slide_serializer.is_valid(raise_exception=True)
+                slide = slide_serializer.save()
+                print(slide.id)
+
+        return Response(course_serializer.data, status=status.HTTP_201_CREATED)

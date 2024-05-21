@@ -3,7 +3,7 @@ from rest_framework_simplejwt.exceptions import InvalidToken
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework_simplejwt.tokens import AccessToken
 
-from .models import User, Student, Teacher, Role, User_Roles, Course, Enroll_Course, CodeSnippet, Lesson, Slide
+from .models import User, Student, Teacher, Role, User_Roles, Course, Enroll_Course, Lesson, Slide
 from django.contrib.auth import authenticate
 from rest_framework.exceptions import AuthenticationFailed, ValidationError
 from django.contrib.auth.tokens import PasswordResetTokenGenerator
@@ -268,12 +268,6 @@ class ResendOTPSerializer(serializers.ModelSerializer):
         return value
 
 
-class ManageCourseSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Course
-        fields = ['title', 'description', 'degree', 'level', 'img_url', 'is_draft', 'category']
-
-
 class PasswordResetRequestSerializer(serializers.Serializer):
     email = serializers.EmailField(max_length=255, min_length=6)
 
@@ -430,26 +424,10 @@ class UserInfoSerializer(serializers.ModelSerializer):
 
 
 # test
-class CodeSnippetSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = CodeSnippet
-        fields = ['id', 'title', 'code']
 
 
 class PasswordSerializer(serializers.Serializer):
     password = serializers.CharField(write_only=True, required=True)
-
-
-class LessonSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Lesson
-        fields = ['id', 'course', 'title', 'order', 'chapter_number', 'description']
-
-
-class SlideSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Slide
-        fields = ['id', 'lesson', 'order', 'description', 'content']
 
 
 class CourseUpdateSerializer(serializers.ModelSerializer):
@@ -460,14 +438,42 @@ class CourseUpdateSerializer(serializers.ModelSerializer):
 
 
 class EnrollCourseCreateSerializer(serializers.ModelSerializer):
-
     class Meta:
         model = Enroll_Course
         fields = ['course', 'student']
 
 
 class EnrollCourseUpdateSerializer(serializers.ModelSerializer):
-
     class Meta:
         model = Enroll_Course
         fields = ['course', 'student', 'score_earned', 'progress']
+
+
+class SlideSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Slide
+        fields = ['lesson', 'order', 'content']
+
+
+class LessonSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Lesson
+        fields = ["course", 'title', 'order', 'description']
+
+
+class ManageCourseSerializer(serializers.ModelSerializer):
+    lessons = LessonSerializer(many=True)
+
+    class Meta:
+        model = Course
+        fields = ['title', 'description', 'degree', 'level', 'img_url', 'is_draft', 'category', 'lessons']
+
+    def create(self, validated_data):
+        lessons_data = validated_data.pop('lessons')
+        course = Course.objects.create(**validated_data)
+        for lesson_data in lessons_data:
+            lesson = Lesson.objects.create(course=course, **lesson_data)
+            slides_data = lesson_data.pop('slides')
+            for slide_data in slides_data:
+                Slide.objects.create(lesson=lesson, **slide_data)
+        return course

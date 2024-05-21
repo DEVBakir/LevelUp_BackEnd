@@ -164,7 +164,7 @@ class Lesson(models.Model):
     course = models.ForeignKey(Course, on_delete=models.CASCADE)
     title = models.CharField(max_length=100)
     order = models.IntegerField()
-    chapter_number = models.IntegerField()
+    chapter_number = models.IntegerField(default=None,null=True)
     description = models.TextField()
 
     class Meta:
@@ -174,7 +174,6 @@ class Lesson(models.Model):
 class Slide(models.Model):
     lesson = models.ForeignKey(Lesson, on_delete=models.CASCADE)
     order = models.IntegerField()
-    description = models.TextField()
     content = models.TextField()
 
     class Meta:
@@ -238,9 +237,3 @@ class Participation(models.Model):
         db_table = 'participation'
 
 
-class CodeSnippet(models.Model):
-    title = models.CharField(max_length=100)
-    code = models.TextField()
-
-    class Meta:
-        db_table = 'codeSnippet'
