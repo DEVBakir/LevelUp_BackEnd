@@ -289,7 +289,7 @@ class CourseList(APIView):
 
     def get(self, request):
         paginator = self.pagination_class()
-        courses = Course.objects.get(is_draft=False)
+        courses = Course.objects.all()
 
         # Extract query parameters
         level_filter = request.query_params.get('level')
