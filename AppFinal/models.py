@@ -165,7 +165,7 @@ class Lesson(models.Model):
     title = models.CharField(max_length=100)
     order = models.IntegerField()
     chapter_number = models.IntegerField(default=None,null=True)
-    description = models.TextField()
+    description = models.TextField(blank=True,null=True)
 
     class Meta:
         db_table = 'lesson'
@@ -174,7 +174,7 @@ class Lesson(models.Model):
 class Slide(models.Model):
     lesson = models.ForeignKey(Lesson, on_delete=models.CASCADE)
     order = models.IntegerField()
-    content = models.TextField()
+    content = models.TextField(blank=True,null=True)
 
     class Meta:
         db_table = 'slide'
