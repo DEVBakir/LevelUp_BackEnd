@@ -135,6 +135,7 @@ class SpecialistRegisterSerializer(serializers.ModelSerializer):
             first_name=validated_data['first_name'],
             last_name=validated_data['last_name'],
             password=validated_data['password'],
+            img=validated_data['img']
         )
         user.save()
         role = Role.objects.get_or_create(name='specialist')[0]
@@ -148,7 +149,7 @@ class AdminRegisterSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ['email', 'first_name', 'last_name', 'password', 'confirmPassword', 'img']
+        fields = ['email', 'first_name', 'last_name', 'password', 'confirmPassword','img']
 
     def validate(self, attrs):
         password1 = attrs.get('password')
@@ -162,7 +163,8 @@ class AdminRegisterSerializer(serializers.ModelSerializer):
             email=validated_data['email'],
             first_name=validated_data['first_name'],
             last_name=validated_data['last_name'],
-            password=validated_data['password']
+            password=validated_data['password'],
+            img=validated_data['img']
         )
         user.save()
         role = Role.objects.get_or_create(name='admin')[0]
@@ -477,3 +479,9 @@ class ManageCourseSerializer(serializers.ModelSerializer):
             for slide_data in slides_data:
                 Slide.objects.create(lesson=lesson, **slide_data)
         return course
+
+
+class UpdateUserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ['first_name', 'last_name', 'email','password','img']

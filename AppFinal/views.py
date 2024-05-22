@@ -75,7 +75,6 @@ class RegisterTeacherView(GenericAPIView):
 class RegisterSpecialistView(GenericAPIView):
     permission_classes = [IsAdmin]
     serializer_class = SpecialistRegisterSerializer
-
     def post(self, request):
         serializer = self.serializer_class(data=request.data)
         if serializer.is_valid(raise_exception=True):
@@ -88,11 +87,12 @@ class RegisterSpecialistView(GenericAPIView):
 
 
 class RegisterAdminView(GenericAPIView):
-    permission_classes = [IsAdmin]
+    permission_classes = [AllowAny]
     serializer_class = AdminRegisterSerializer
 
     def post(self, request):
         serializer = self.serializer_class(data=request.data)
+        print(request.data)
         if serializer.is_valid(raise_exception=True):
             serializer.save()
             admin = serializer.data
@@ -760,3 +760,4 @@ class CourseCreateAPIView(APIView):
                 print(slide.id)
 
         return Response(course_serializer.data, status=status.HTTP_201_CREATED)
+

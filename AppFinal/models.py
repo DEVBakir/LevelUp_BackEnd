@@ -26,7 +26,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     is_active = models.BooleanField(default=True)
     date_joined = models.DateTimeField(auto_now_add=True)
     last_login = models.DateTimeField(auto_now=True)
-    img = models.ImageField(upload_to='images/', null=True, default="images/defaultPersone.png")
+    img = models.ImageField(upload_to='images/',null=True)
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['first_name', 'last_name']
@@ -147,7 +147,7 @@ class Course(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     is_draft = models.BooleanField(default=True)
-    category = models.CharField(max_length=28,null=True)
+    category = models.CharField(max_length=28, null=True)
 
     def level_order(self):
         levels = {'Beginner': 1, 'Intermediate': 2, 'Advanced': 3}
@@ -164,8 +164,8 @@ class Lesson(models.Model):
     course = models.ForeignKey(Course, on_delete=models.CASCADE)
     title = models.CharField(max_length=100)
     order = models.IntegerField()
-    chapter_number = models.IntegerField(default=None,null=True)
-    description = models.TextField(blank=True,null=True)
+    chapter_number = models.IntegerField(default=None, null=True)
+    description = models.TextField(blank=True, null=True)
 
     class Meta:
         db_table = 'lesson'
@@ -174,7 +174,7 @@ class Lesson(models.Model):
 class Slide(models.Model):
     lesson = models.ForeignKey(Lesson, on_delete=models.CASCADE)
     order = models.IntegerField()
-    content = models.TextField(blank=True,null=True)
+    content = models.TextField(blank=True, null=True)
 
     class Meta:
         db_table = 'slide'
@@ -235,5 +235,3 @@ class Participation(models.Model):
 
     class Meta:
         db_table = 'participation'
-
-
