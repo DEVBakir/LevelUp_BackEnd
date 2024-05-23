@@ -11,10 +11,11 @@ from .serializers import TeacherRegisterSerializer, SpecialistRegisterSerializer
     AdminRegisterSerializer, LoginSerializer, ManageCourseSerializer, PasswordResetRequestSerializer, \
     SetNewPasswordSerializer, ValidateEmailSerializer, ResendOTPSerializer, CourseSerializer, \
     TeacherCourseAssignmentSerializer, TeacherSerializer, ProfileUpdateSerializer, UserInfoSerializer, \
-    GetUserSerializer, LessonSerializer, SlideSerializer, CourseUpdateSerializer, EnrollCourseCreateSerializer
+    GetUserSerializer, LessonSerializer, SlideSerializer, CourseUpdateSerializer, EnrollCourseCreateSerializer, \
+    UpdateUserSerializer, CourseSerializerForGet
 from rest_framework.permissions import AllowAny
 from .utils import send_code
-from .models import OneTimePassword, User, Course, Badge, User_Roles, Teacher, Lesson, Slide
+from .models import OneTimePassword, User, Course, Badge, User_Roles, Teacher, Lesson, Slide, Role
 from django.utils.http import urlsafe_base64_decode
 from django.utils.encoding import smart_str, DjangoUnicodeDecodeError
 from django.contrib.auth.tokens import PasswordResetTokenGenerator
@@ -75,6 +76,7 @@ class RegisterTeacherView(GenericAPIView):
 class RegisterSpecialistView(GenericAPIView):
     permission_classes = [IsAdmin]
     serializer_class = SpecialistRegisterSerializer
+
     def post(self, request):
         serializer = self.serializer_class(data=request.data)
         if serializer.is_valid(raise_exception=True):
@@ -234,7 +236,7 @@ class SearchCourseView(APIView):
             ).distinct()
         else:
             # If no keyword is provided, return all courses
-            courses = Course.objects.get(is_draft=False)
+            courses = Course.objects.filter(is_draft=False)
 
         # Serialize the results
         serializer = self.serializer_class(courses, many=True)
@@ -581,6 +583,21 @@ class LessonsByCourseAPIView(APIView):
         serializer = LessonSerializer(lessons, many=True)
         return Response(serializer.data)
 
+class LessonsByCourse1APIView(APIView):
+    permission_classes = [AllowAny]
+
+    def get(self, request, course_id):
+        try:
+            course = Course.objects.get(id=course_id)
+            data = CourseSerializerForGet(course).data
+            lessons = Lesson.objects.filter(course_id=course_id)
+            serializer = LessonSerializer(lessons, many=True)
+            return Response({
+                'course': data,
+                'lessons': serializer.data
+            })
+        except Course.DoesNotExist:
+            return Response({'error': 'Course not found'}, status=status.HTTP_404_NOT_FOUND)
 
 class LessonUpdateAPIView(APIView):
     permission_classes = [IsSpecialist]
@@ -761,3 +778,28 @@ class CourseCreateAPIView(APIView):
 
         return Response(course_serializer.data, status=status.HTTP_201_CREATED)
 
+
+class ModifyUserView(APIView):
+    permission_classes = [AllowAny]
+
+    def put(self, request, pk):
+        try:
+            user = User.objects.get(pk=pk)
+        except User.DoesNotExist:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+
+        serializer = UpdateUserSerializer(user, data=request.data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            if request.data.get('role'):
+                print("test2")
+                if request.data.get('role') != User_Roles.objects.get(user=user).role.name:
+                    role = Role.objects.get(name=request.data.get('role'))
+                    user_role = User_Roles.objects.get(user=user)
+                    user_role.role = role
+                    user_role.save()
+                    print("tesst2")
+            #print(User_Roles.objects.filter(user=user).first())
+
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

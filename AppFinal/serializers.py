@@ -130,16 +130,23 @@ class SpecialistRegisterSerializer(serializers.ModelSerializer):
         return attrs
 
     def create(self, validated_data):
+        validated_data.pop('confirmPassword')  # Remove confirmPassword before creating the user
+        img = validated_data.pop('img', None)  # Handle img field separately if it might be optional
+
         user = User.objects.create_superuser(
             email=validated_data['email'],
             first_name=validated_data['first_name'],
             last_name=validated_data['last_name'],
-            password=validated_data['password'],
-            img=validated_data['img']
+            password=validated_data['password']
         )
-        user.save()
-        role = Role.objects.get_or_create(name='specialist')[0]
+
+        if img:
+            user.img = img
+            user.save()
+
+        role, created = Role.objects.get_or_create(name='specialist')
         User_Roles.objects.create(user=user, role=role)
+
         return user
 
 
@@ -149,7 +156,7 @@ class AdminRegisterSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ['email', 'first_name', 'last_name', 'password', 'confirmPassword','img']
+        fields = ['email', 'first_name', 'last_name', 'password', 'confirmPassword', 'img']
 
     def validate(self, attrs):
         password1 = attrs.get('password')
@@ -159,17 +166,22 @@ class AdminRegisterSerializer(serializers.ModelSerializer):
         return attrs
 
     def create(self, validated_data):
+        img = validated_data.pop('img', None)  # Handle img field separately if it might be optional
+
         user = User.objects.create_superuser(
             email=validated_data['email'],
             first_name=validated_data['first_name'],
             last_name=validated_data['last_name'],
-            password=validated_data['password'],
-            img=validated_data['img']
+            password=validated_data['password']
         )
-        user.save()
-        role = Role.objects.get_or_create(name='admin')[0]
-        print(role)
+
+        if img:
+            user.img = img
+            user.save()
+
+        role, created = Role.objects.get_or_create(name='admin')
         User_Roles.objects.create(user=user, role=role)
+
         return user
 
 
@@ -333,6 +345,12 @@ class CourseSerializer(serializers.ModelSerializer):
         fields = ['id', 'title', 'description', 'degree', 'level', 'img_url', 'created_at', 'updated_at']
 
 
+class CourseSerializerForGet(serializers.ModelSerializer):
+    class Meta:
+        model = Course
+        fields = '__all__'
+
+
 class TeacherSerializer(serializers.ModelSerializer):
     class Meta:
         model = Teacher
@@ -484,4 +502,12 @@ class ManageCourseSerializer(serializers.ModelSerializer):
 class UpdateUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ['first_name', 'last_name', 'email','password','img']
+        fields = ['first_name', 'last_name', 'email', 'password', 'img']
+
+    def update(self, instance, validated_data):
+        password = validated_data.pop('password', None)
+        instance = super().update(instance, validated_data)
+        if password:
+            instance.set_password(password)
+            instance.save()
+        return instance
